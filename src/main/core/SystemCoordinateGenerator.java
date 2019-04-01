@@ -43,7 +43,7 @@ public class SystemCoordinateGenerator {
         //добавляем точки
 
         for (int i = 0; i < pointCount; i++) {
-            if (!gui.isStopAction()) {
+            if (!gui.getLogicWrapper().isStopAction()) {
                 //объект для генерации случайных чисел
                 Random rnd = new Random();
                 //Создаем точку с координатами в диапозоне координат 0 < X <  MAX_X; 0 < Y < MAX_Y

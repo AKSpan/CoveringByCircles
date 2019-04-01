@@ -1,35 +1,23 @@
 package main.gui;
 
-import main.core.IAlgorithm;
 import main.core.SystemCoordinateGenerator;
+import main.core.TwoPointAlgorithm;
 import main.core.objects.CoordinateSystem;
 import main.gui.custom.panels.FooterPanel;
 import main.gui.factory.JComponentsFactory;
 import main.gui.listener.ApplicationActionListenerHolder;
+import main.gui.math.LogicWrapper;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class GuiBuilderV2 {
-    private static final int SIZE_X = 800;
+    private static final int SIZE_X = 900;
+    private static final int SYSTEM_COORDINATE_SIZE_X = 400;
     private static final int SIZE_Y = 600;
+    private static final int SYSTEM_COORDINATE_SIZE_Y = 400;
     private static final Dimension MAIN_FRAME_SIZE = new Dimension(SIZE_X, SIZE_Y);
-    /**
-     * Флаг остановки процесса вычисления (генерации точек, подсчёта плотности)
-     */
-    private volatile boolean stopAction;
-    /**
-     * Система координат
-     */
-    private CoordinateSystem coordinateSystem;
-    /**
-     * Генератор точек для системы координат
-     */
-    private SystemCoordinateGenerator systemCoordinateGenerator;
-    /**
-     * Выбранный алгоритм работы
-     */
-    private IAlgorithm algorithm;
+
     /**
      * Главная форма приложения. Она наполняется компонентами.
      */
@@ -39,11 +27,23 @@ public class GuiBuilderV2 {
      */
     private ApplicationUIComponentsHolder uiComponentsHolder;
 
+    /**
+     * Объект с вычисления данных для формы
+     */
+    private LogicWrapper logicWrapper;
+
     public GuiBuilderV2() {
         this.initUI();
     }
 
     public GuiBuilderV2 build() {
+        /* заполняем начальную логику. Алгоритм по умолчанию - две точки */
+        this.logicWrapper = new LogicWrapper()
+                .setStopAction(false)
+                .setAlgorithm(new TwoPointAlgorithm())
+                .setSystemCoordinateGenerator(new SystemCoordinateGenerator(SYSTEM_COORDINATE_SIZE_X, SYSTEM_COORDINATE_SIZE_Y, 0))
+                .setCoordinateSystem(new CoordinateSystem(SYSTEM_COORDINATE_SIZE_X, SYSTEM_COORDINATE_SIZE_Y));
+        /* Объект с логикой действий для кнопок и компонентов  */
         ApplicationActionListenerHolder applicationActionListenerHolder = new ApplicationActionListenerHolder(this);
         uiComponentsHolder = new ApplicationUIComponentsHolder();
         FooterPanel footerPanel1 = JComponentsFactory.getFooterPanel();
@@ -52,10 +52,12 @@ public class GuiBuilderV2 {
         uiComponentsHolder.setLeftPanel(JComponentsFactory.leftPanel(applicationActionListenerHolder));
         uiComponentsHolder.setRightPanel(JComponentsFactory.rightPanel(applicationActionListenerHolder));
         uiComponentsHolder.setMenu(JComponentsFactory.menu(applicationActionListenerHolder));
+        uiComponentsHolder.setDrawPanel(JComponentsFactory.drawPanel(SYSTEM_COORDINATE_SIZE_X, SYSTEM_COORDINATE_SIZE_Y, this));
 
         this.mainFrame.add(uiComponentsHolder.getFooter(), BorderLayout.SOUTH);
         this.mainFrame.add(uiComponentsHolder.getLeftPanel(), BorderLayout.WEST);
         this.mainFrame.add(uiComponentsHolder.getRightPanel(), BorderLayout.EAST);
+        this.mainFrame.add(uiComponentsHolder.getDrawPanel(), BorderLayout.CENTER);
         this.mainFrame.setJMenuBar(uiComponentsHolder.getMenu());
         return this;
     }
@@ -76,7 +78,7 @@ public class GuiBuilderV2 {
         this.mainFrame.setSize(MAIN_FRAME_SIZE);
         /* задаем визуальные размеры формы */
         this.mainFrame.setPreferredSize(MAIN_FRAME_SIZE);
-        /* задаем тип лэйата для размещения компонентов */
+        /* задаем тип лэйаута для размещения компонентов */
         this.mainFrame.setLayout(new BorderLayout());
 
         /* вычисляем центр экрана для отображения формы по центру */
@@ -93,30 +95,7 @@ public class GuiBuilderV2 {
         return uiComponentsHolder;
     }
 
-    public void setAlgorithm(IAlgorithm algorithm) {
-        this.algorithm = algorithm;
-
-    }
-
-    public boolean isStopAction() {
-        return stopAction;
-    }
-
-    public GuiBuilderV2 setStopAction(boolean stopAction) {
-        this.stopAction = stopAction;
-        return this;
-    }
-
-    public CoordinateSystem getCoordinateSystem() {
-        return coordinateSystem;
-    }
-
-    public GuiBuilderV2 setCoordinateSystem(CoordinateSystem coordinateSystem) {
-        this.coordinateSystem = coordinateSystem;
-        return this;
-    }
-
-    public IAlgorithm getAlgorithm() {
-        return algorithm;
+    public LogicWrapper getLogicWrapper() {
+        return logicWrapper;
     }
 }

@@ -10,8 +10,9 @@ import java.util.*;
 public class ThreePointsAlgorithm implements IAlgorithm {
     @Override
     public ResultInfo calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder) {
-        CoordinateSystem coordinateSystem = guiBuilder.getCoordinateSystem();
-        long minPointInCircle = 2;//guiBuilder.getMinPointsInCircle();
+        CoordinateSystem coordinateSystem = guiBuilder.getLogicWrapper().getCoordinateSystem();
+        long minPointInCircle = guiBuilder.getLogicWrapper().getMinimalPointInCircle();
+
         HashSet<Point> points = coordinateSystem.getPoints();
 
         ResultInfo resultInfo = new ResultInfo();

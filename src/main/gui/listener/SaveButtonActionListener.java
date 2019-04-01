@@ -34,7 +34,7 @@ public class SaveButtonActionListener implements ActionListener {
                 File f = new File(fileName);
                 FileWriter fw = new FileWriter(f);
                 BufferedWriter bf = new BufferedWriter(fw);
-                bf.write(guiBuilder.getCoordinateSystem().fullDataString());
+                bf.write(guiBuilder.getLogicWrapper().getCoordinateSystem().fullDataString());
                 bf.close();
                 JOptionPane.showConfirmDialog(null, "Файл сохранен в " + f.getPath(), "Сохранение", JOptionPane.DEFAULT_OPTION);
             }

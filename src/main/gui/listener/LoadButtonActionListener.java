@@ -2,7 +2,6 @@ package main.gui.listener;
 
 import main.core.objects.Circle;
 import main.core.objects.Point;
-import main.gui.GuiBuilder;
 import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
@@ -51,12 +50,12 @@ public class LoadButtonActionListener implements ActionListener {
 
                         }
                     }
-                    guiBuilder.getCoordinateSystem().setCircle(circle);
-                    guiBuilder.getCoordinateSystem().addPoints(points);
-//                    guiBuilder.getDrawPanel().addPoints(points, circle);
-//                    guiBuilder.getDrawPanel().repaint();
+                    guiBuilder.getLogicWrapper().getCoordinateSystem().setCircle(circle);
+                    guiBuilder.getLogicWrapper().getCoordinateSystem().addPoints(points);
+                    guiBuilder.getUiComponentsHolder().getDrawPanel().addPoints(points, circle);
+                    guiBuilder.getUiComponentsHolder().setLabelText("Точек " + points.size());
                 } catch (IOException ex) {
-                    JOptionPane.showConfirmDialog(null, ex.getMessage(), "Your title here bro", JOptionPane.DEFAULT_OPTION);
+                    JOptionPane.showConfirmDialog(null, ex.getMessage(), "Не удалось прочитать файл", JOptionPane.DEFAULT_OPTION);
                 }
             }
         }

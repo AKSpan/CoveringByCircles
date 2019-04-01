@@ -5,58 +5,24 @@ import main.core.objects.Circle;
 import main.core.objects.CoordinateSystem;
 import main.core.objects.Point;
 import main.core.objects.ResultInfo;
-import main.gui.GuiBuilder;
 import main.gui.GuiBuilderV2;
+import main.gui.listener.AddPointToSystemCoordinateMouseListener;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
-import java.util.Collections;
 import java.util.Set;
 
 public class DrawPanel extends JPanel {
     private CoordinateSystem coordinateSystem;
     private JTextField jTextField;
+    private GuiBuilderV2 guiBuilderV2;
 
-    public DrawPanel(CoordinateSystem coordinateSystem) {
-        this.coordinateSystem = coordinateSystem;
-        this.setBackground(Color.LIGHT_GRAY);
-        this.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("CLICK");
-                int x = e.getX();
-                int y = e.getY();
-                if (x <= DrawPanel.this.coordinateSystem.getMaxX() && y <= DrawPanel.this.coordinateSystem.getMaxY()) {
-                    //Graphics graphics = DrawPanel.this.getGraphics();
-                    DrawPanel.this.coordinateSystem.addPoint(new Point(x, y));
-                    DrawPanel.this.addPoints(DrawPanel.this.coordinateSystem, null);
-
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-        });
+    public DrawPanel(GuiBuilderV2 guiBuilderV2) {
+        this.guiBuilderV2 = guiBuilderV2;
+        this.coordinateSystem = guiBuilderV2.getLogicWrapper().getCoordinateSystem();
+        this.setBackground(Color.WHITE);
+        this.addMouseListener(new AddPointToSystemCoordinateMouseListener(this.guiBuilderV2));
     }
 
     @Override
@@ -96,7 +62,7 @@ public class DrawPanel extends JPanel {
 
 
     public void calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder) {
-        IAlgorithm algorithm = guiBuilder.getAlgorithm();
+        IAlgorithm algorithm = guiBuilder.getLogicWrapper().getAlgorithm();
         ResultInfo resultInfo = algorithm.calculateDensityAndDrawCircle(guiBuilder);
         //Стираем предыдущую окружность
         this.addPoints(this.coordinateSystem.getPoints(), null);
@@ -130,5 +96,9 @@ public class DrawPanel extends JPanel {
     public void changeTextFieldText(String s) {
         if (jTextField != null)
             this.jTextField.setText(s);
+    }
+
+    public CoordinateSystem getCoordinateSystem() {
+        return coordinateSystem;
     }
 }

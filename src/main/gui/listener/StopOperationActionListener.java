@@ -14,6 +14,6 @@ public class StopOperationActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.guiBuilder.setStopAction(true);
+        this.guiBuilder.getLogicWrapper().setStopAction(true);
     }
 }

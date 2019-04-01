@@ -1,5 +1,7 @@
 package main.gui;
 
+import main.gui.custom.panels.DrawPanel;
+
 import javax.swing.*;
 
 /**
@@ -10,8 +12,8 @@ public class ApplicationUIComponentsHolder {
     private JLabel operationLabel;
     private JPanel leftPanel;
     private JPanel rightPanel;
-    private JPanel drawPanel;
     private JMenuBar menu;
+    private DrawPanel drawPanel;
 
     public JPanel getFooter() {
         return footer;
@@ -49,11 +51,11 @@ public class ApplicationUIComponentsHolder {
         return this;
     }
 
-    public JPanel getDrawPanel() {
+    public DrawPanel getDrawPanel() {
         return drawPanel;
     }
 
-    public ApplicationUIComponentsHolder setDrawPanel(JPanel drawPanel) {
+    public ApplicationUIComponentsHolder setDrawPanel(DrawPanel drawPanel) {
         this.drawPanel = drawPanel;
         return this;
     }
@@ -69,5 +71,9 @@ public class ApplicationUIComponentsHolder {
 
     public void setLabelText(String text) {
         this.operationLabel.setText(text);
+    }
+
+    public void setEnabledForButtons(boolean b) {
+        this.leftPanel.setEnabled(b);
     }
 }

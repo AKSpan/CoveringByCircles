@@ -1,6 +1,5 @@
 package main.gui.listener;
 
-import main.gui.GuiBuilder;
 import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
@@ -22,22 +21,22 @@ public class CalculateDensityActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("CalculateDensityActionListener");
-//        if (this.guiBuilder.getCoordinateSystem().getPoints().size() < this.guiBuilder.getMinPointsInCircle()) {
-//            JOptionPane.showConfirmDialog(null, this.getErrorMessageWithMinPointsCount(), "Ошибка вычисления", JOptionPane.DEFAULT_OPTION);
-//
-//        } else {
-//            Thread thread = new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//
-////                    guiBuilder.setEnabledForButtons(false);
-////                    guiBuilder.getUiComponentsHolder().getDrawPanel().calculateDensityAndDrawCircle(guiBuilder);
-////                    guiBuilder.setEnabledForButtons(true);
-//                }
-//
-//            });
-//            thread.start();
-      //  }
+        if (this.guiBuilder.getLogicWrapper().getCoordinateSystem().getPoints().size() < this.guiBuilder.getLogicWrapper().getMinimalPointInCircle()) {
+            JOptionPane.showConfirmDialog(null, this.getErrorMessageWithMinPointsCount(), "Ошибка вычисления", JOptionPane.DEFAULT_OPTION);
+
+        } else {
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    guiBuilder.getUiComponentsHolder().setEnabledForButtons(false);
+                    guiBuilder.getUiComponentsHolder().getDrawPanel().calculateDensityAndDrawCircle(guiBuilder);
+                    guiBuilder.getUiComponentsHolder().setEnabledForButtons(true);
+                }
+
+            });
+            thread.start();
+        }
 
     }
 }

@@ -1,6 +1,5 @@
 package main.gui.listener;
 
-import main.gui.GuiBuilder;
 import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
@@ -20,7 +19,7 @@ public class SetMinimalPointInCircleActionListener implements ActionListener {
         try {
             if (s != null) {
                 long i = Long.parseLong(s);
-//                this.guiBuilder.setMinPointsInCircle(i);
+                this.guiBuilder.getLogicWrapper().setMinimalPointsInCircle(i);
             }
         } catch (NumberFormatException e1) {
             JOptionPane.showConfirmDialog(null, e1.getMessage(), "Ошибка", JOptionPane.DEFAULT_OPTION);

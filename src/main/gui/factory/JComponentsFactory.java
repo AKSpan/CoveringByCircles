@@ -1,6 +1,10 @@
 package main.gui.factory;
 
 import main.core.enums.AlgorithmTypes;
+import main.core.objects.CoordinateSystem;
+import main.gui.GuiBuilder;
+import main.gui.GuiBuilderV2;
+import main.gui.custom.panels.DrawPanel;
 import main.gui.custom.panels.FooterPanel;
 import main.gui.listener.*;
 
@@ -49,8 +53,9 @@ public class JComponentsFactory {
         leftPanel.setSize(SIZE_50, SIZE_600);
         leftPanel.setPreferredSize(new Dimension(SIZE_50, SIZE_600));
         leftPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK));
-        URL resource = JComponentsFactory.class.getClassLoader().getResource("axis.png");
 
+        /* 1 */
+        URL resource = JComponentsFactory.class.getClassLoader().getResource("axis.png");
         ImageIcon imageIcon = new ImageIcon(resource);
         JButton generateButton = new JButton(imageIcon);
         generateButton.setToolTipText("Генерация точек");
@@ -60,7 +65,6 @@ public class JComponentsFactory {
         generateButton.addActionListener(applicationActionListenerHolder.getGeneratePointsActionListener());
 
         URL resourceCalcImg = JComponentsFactory.class.getClassLoader().getResource("calculate.png");
-
         ImageIcon imageIconCalc = new ImageIcon(resourceCalcImg);
         JButton calculate = new JButton(imageIconCalc);
 
@@ -144,6 +148,13 @@ public class JComponentsFactory {
         menuBar.add(JComponentsFactory.createOperationMenu(applicationActionListenerHolder));
 
         return menuBar;
+    }
+
+    public static DrawPanel drawPanel(int x, int y, GuiBuilderV2 guiBuilder) {
+        DrawPanel drawPanel = new DrawPanel(guiBuilder);
+        drawPanel.setSize(x, y);
+        drawPanel.setPreferredSize(new Dimension(x, y));
+        return drawPanel;
     }
 
     private static JMenu createFileMenu(ApplicationActionListenerHolder applicationActionListenerHolder) {

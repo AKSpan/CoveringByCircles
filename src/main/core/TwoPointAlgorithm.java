@@ -1,9 +1,7 @@
 package main.core;
 
-import main.core.math.Factorial;
 import main.core.math.Permutations;
 import main.core.objects.*;
-import main.gui.GuiBuilder;
 import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
@@ -13,10 +11,10 @@ import java.util.*;
 public class TwoPointAlgorithm implements IAlgorithm {
     @Override
     public ResultInfo calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder) {
-        guiBuilder.setStopAction(false);
-        CoordinateSystem coordinateSystem = guiBuilder.getCoordinateSystem();
+        guiBuilder.getLogicWrapper().setStopAction(false);
+        CoordinateSystem coordinateSystem = guiBuilder.getLogicWrapper().getCoordinateSystem();
         JLabel label = guiBuilder.getUiComponentsHolder().getOperationLabel();
-        long minPointInCircle = 2;//guiBuilder.getMinPointsInCircle();
+        long minPointInCircle = guiBuilder.getLogicWrapper().getMinimalPointInCircle();
         HashSet<Point> points = coordinateSystem.getPoints();
         Point[] objects = points.toArray(new Point[]{});
         Point p1, p2;
@@ -25,11 +23,11 @@ public class TwoPointAlgorithm implements IAlgorithm {
         BigInteger maxOperationCount = Permutations.get(points.size(), 2);
         int currentOperationCount = 0;
         for (Point objPoint1 : objects) {
-            if (guiBuilder.isStopAction())
+            if (guiBuilder.getLogicWrapper().isStopAction())
                 break;
             p1 = objPoint1;
             for (Point objPoint2 : objects) {
-                if (guiBuilder.isStopAction())
+                if (guiBuilder.getLogicWrapper().isStopAction())
                     break;
                 if (p1.equals(objPoint2)) {
                     continue;
@@ -39,11 +37,11 @@ public class TwoPointAlgorithm implements IAlgorithm {
                 p2 = objPoint2;
                 boolean canPointAdd = true;
                 for (List<Point> pointList : listOfPoints) {
-                    if (guiBuilder.isStopAction())
+                    if (guiBuilder.getLogicWrapper().isStopAction())
                         break;
                     int equalsCounter = 0;
                     for (Point point : pointList) {
-                        if (guiBuilder.isStopAction())
+                        if (guiBuilder.getLogicWrapper().isStopAction())
                             break;
 //                        currentOperationCount++;
 //                        label.setText(String.format("Шаг операции %s из максимальных %s", currentOperationCount, maxOperationCount));

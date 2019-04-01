@@ -16,8 +16,8 @@ public class ClearFormActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        guiBuilder.getUiComponentsHolder().getDrawPanel().addPoints(Collections.emptySet(), null);
-//        guiBuilder.getUiComponentsHolder().getCoordinateSystem().clear();
-//        guiBuilder.getUiComponentsHolder().getTextField().setText("0");
+        guiBuilder.getUiComponentsHolder().getDrawPanel().addPoints(Collections.emptySet(), null);
+        guiBuilder.getLogicWrapper().getCoordinateSystem().clear();
+        guiBuilder.getUiComponentsHolder().setLabelText("Точек 0");
     }
 }

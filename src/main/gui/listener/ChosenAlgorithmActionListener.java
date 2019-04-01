@@ -21,18 +21,18 @@ public class ChosenAlgorithmActionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (this.algorithm) {
             case FULL_SEARCH:
-                guiBuilder.setAlgorithm(new FullSearchAlgorithm());
+                guiBuilder.getLogicWrapper().setAlgorithm(new FullSearchAlgorithm());
                 break;
             case TWO_POINTS:
-                guiBuilder.setAlgorithm(new TwoPointAlgorithm());
+                guiBuilder.getLogicWrapper().setAlgorithm(new TwoPointAlgorithm());
 
                 break;
             case THREE_POINTS:
-                guiBuilder.setAlgorithm(new ThreePointsAlgorithm());
+                guiBuilder.getLogicWrapper().setAlgorithm(new ThreePointsAlgorithm());
 
                 break;
             case SQUARES_METHOD:
-                guiBuilder.setAlgorithm(new SquareMethodAlgorithm());
+                guiBuilder.getLogicWrapper().setAlgorithm(new SquareMethodAlgorithm());
 
                 break;
         }
