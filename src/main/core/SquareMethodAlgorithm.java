@@ -4,6 +4,7 @@ import main.core.objects.CoordinateSystem;
 import main.core.objects.Point;
 import main.core.objects.ResultInfo;
 import main.gui.GuiBuilder;
+import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
 import java.util.List;
@@ -21,7 +22,7 @@ public class SquareMethodAlgorithm implements IAlgorithm {
     }
 
     @Override
-    public ResultInfo calculateDensityAndDrawCircle(GuiBuilder guiBuilder) {
+    public ResultInfo calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder) {
         return new ResultInfo();
     }
 }

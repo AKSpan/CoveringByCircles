@@ -6,12 +6,14 @@ import main.core.objects.CoordinateSystem;
 import main.core.objects.Point;
 import main.core.objects.ResultInfo;
 import main.gui.GuiBuilder;
+import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Ellipse2D;
+import java.util.Collections;
 import java.util.Set;
 
 public class DrawPanel extends JPanel {
@@ -87,33 +89,28 @@ public class DrawPanel extends JPanel {
                     c.getRadius() * 2,
                     c.getRadius() * 2));
 
-//            graphics.drawOval(
-//                    (int) (c.getCenter().getX() - c.getRadius() + 1),
-//                    (int) (c.getCenter().getY() - c.getRadius() + 1),
-//                    (int) c.getRadius() * 2,
-//                    (int) c.getRadius() * 2);
 
         }
         changeTextFieldText(String.valueOf(pointList.size()));
     }
 
 
-    public void calculateDensityAndDrawCircle(GuiBuilder guiBuilder) {
+    public void calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder) {
         IAlgorithm algorithm = guiBuilder.getAlgorithm();
         ResultInfo resultInfo = algorithm.calculateDensityAndDrawCircle(guiBuilder);
-        Graphics graphics = super.getGraphics();
+        //Стираем предыдущую окружность
+        this.addPoints(this.coordinateSystem.getPoints(), null);
+        //Рисуем новую
+        Graphics2D graphics = (Graphics2D) super.getGraphics();
         graphics.setColor(Color.GREEN);
-        graphics.drawOval(
-                (int) (resultInfo.getCircle().getCenter().getX() - resultInfo.getCircle().getRadius() + 1),
-                (int) (resultInfo.getCircle().getCenter().getY() - resultInfo.getCircle().getRadius() + 1),
-                (int) resultInfo.getCircle().getRadius() * 2,
-                (int) resultInfo.getCircle().getRadius() * 2);
-        graphics.setColor(Color.ORANGE);
-        //рисуем точку центра окружности
-//        graphics.drawRect((int) resultInfo.getCircle().getCenter().getX(), (int) resultInfo.getCircle().getCenter().getY(), 5, 5);
-        graphics.setColor(Color.BLUE);
+        graphics.draw(new Ellipse2D.Double((resultInfo.getCircle().getCenter().getX() - resultInfo.getCircle().getRadius() + 1),
+                (resultInfo.getCircle().getCenter().getY() - resultInfo.getCircle().getRadius() + 1),
+                resultInfo.getCircle().getRadius() * 2,
+                resultInfo.getCircle().getRadius() * 2));
+
 
     }
+
 
     public void drawGridPanel() {
         System.out.println(this.getSize());

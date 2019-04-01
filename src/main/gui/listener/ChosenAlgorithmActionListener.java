@@ -3,15 +3,16 @@ package main.gui.listener;
 import main.core.*;
 import main.core.enums.AlgorithmTypes;
 import main.gui.GuiBuilder;
+import main.gui.GuiBuilderV2;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ChosenAlgorithmActionListener implements ActionListener {
-    private GuiBuilder guiBuilder;
+    private GuiBuilderV2 guiBuilder;
     private AlgorithmTypes algorithm;
 
-    public ChosenAlgorithmActionListener(GuiBuilder guiBuilder, AlgorithmTypes algorithm) {
+    public ChosenAlgorithmActionListener(GuiBuilderV2 guiBuilder, AlgorithmTypes algorithm) {
         this.guiBuilder = guiBuilder;
         this.algorithm = algorithm;
     }
@@ -20,7 +21,6 @@ public class ChosenAlgorithmActionListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (this.algorithm) {
             case FULL_SEARCH:
-                //todo
                 guiBuilder.setAlgorithm(new FullSearchAlgorithm());
                 break;
             case TWO_POINTS:

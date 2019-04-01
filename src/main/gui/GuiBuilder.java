@@ -12,17 +12,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 public class GuiBuilder {
-    private volatile boolean stopAction;
+  /*  private volatile boolean stopAction;
     private JFrame mainFrame;
 
     private SystemCoordinateGenerator systemCoordinateGenerator;
     private CoordinateSystem coordinateSystem;
     private DrawPanel drawPanel;
     private int drawSizeX, drawSizeY;
-    private File loadedFile;
     private IAlgorithm iAlgorithm;
     private JLabel informationAboutOperationText;
     private int pointCount;
@@ -31,7 +29,7 @@ public class GuiBuilder {
 
         this.mainFrame = new JFrame(title);
         this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.mainFrame.setSize(x, y);
+        this.mainFrame.setPreferredSize(new Dimension(x, y));
         this.mainFrame.setLayout(new BorderLayout());
         this.mainFrame.setLocationRelativeTo(null);
         this.pointCount = pointCount;
@@ -55,18 +53,42 @@ public class GuiBuilder {
         menuBar.add(this.createOperationMenu());
         this.mainFrame.setJMenuBar(menuBar);
         this.mainFrame.setLayout(new BorderLayout());
+        *//******************************************//*
+        JPanel mainPanelWithComponents = new JPanel();
+        mainPanelWithComponents.setLayout(new BorderLayout());
+        JPanel panelButtons = new JPanel();
+        panelButtons.setBackground(Color.RED);
+        panelButtons.setPreferredSize(new Dimension(100, 600));
+        JPanel panelOperationsInfo = new JPanel();
+        panelOperationsInfo.setBackground(Color.YELLOW);
+        panelOperationsInfo.setPreferredSize(new Dimension(200, 600));
+        JPanel processingPanel = new JPanel();
+        processingPanel.setPreferredSize(new Dimension(600, 20));
+        processingPanel.setBackground(Color.BLUE);
+        JPanel drawP = new JPanel();
+        drawP.setPreferredSize(new Dimension(400, 480));
+        drawP.setBackground(Color.CYAN);
 
-        JPanel footerAndDraw = new JPanel();
-        footerAndDraw.setLayout(new BoxLayout(footerAndDraw, BoxLayout.Y_AXIS));
+        *//***********************************//*
+        mainPanelWithComponents.add(drawP, BorderLayout.CENTER);
+        mainPanelWithComponents.add(processingPanel, BorderLayout.SOUTH);
+        mainPanelWithComponents.add(panelButtons, BorderLayout.WEST);
+        mainPanelWithComponents.add(panelOperationsInfo, BorderLayout.EAST);
+
+//        JPanel footerAndDraw = new JPanel();
+//        footerAndDraw.setLayout(new BoxLayout(footerAndDraw, BoxLayout.Y_AXIS));
+//
+//
+//        footerAndDraw.add(this.addGraphicPanel(400, 250));
+//        JPanel footer = new JPanel();
+//        footer.setLayout(new FlowLayout());
+//        footer.add(this.addFooter());
+//        footerAndDraw.add(footer);
+//        this.mainFrame.add(footerAndDraw, BorderLayout.WEST);
+//
 
 
-        footerAndDraw.add(this.addGraphicPanel(drawSizeX, drawSizeY));
-        JPanel footer = new JPanel();
-        footer.setLayout(new FlowLayout());
-        footer.add(this.addFooter());
-        footerAndDraw.add(footer);
-        this.mainFrame.add(footerAndDraw, BorderLayout.WEST);
-
+        this.mainFrame.add(mainPanelWithComponents);
         this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.mainFrame.setVisible(true);
         this.mainFrame.pack();
@@ -110,7 +132,7 @@ public class GuiBuilder {
 
         jp.setPreferredSize(new Dimension(x, y));
         jp.setPreferredSize(new Dimension(x, y));
-        this.systemCoordinateGenerator = new SystemCoordinateGenerator(drawSizeX, drawSizeY, pointCount);
+        this.systemCoordinateGenerator = new SystemCoordinateGenerator(400, 300, pointCount);
         this.coordinateSystem = this.systemCoordinateGenerator.generate(this);
         this.drawPanel = new DrawPanel(this.coordinateSystem);
         drawPanel.setPreferredSize(new Dimension(x, y));
@@ -151,10 +173,10 @@ public class GuiBuilder {
         this.setAlgorithm(new TwoPointAlgorithm());
         JRadioButtonMenuItem squares = new JRadioButtonMenuItem("Метод квадратнов");
 
-        fullAlgo.addActionListener(new ChosenAlgorithmActionListener(this, AlgorithmTypes.FULL_SEARCH));
-        three_points.addActionListener(new ChosenAlgorithmActionListener(this, AlgorithmTypes.THREE_POINTS));
-        two_points.addActionListener(new ChosenAlgorithmActionListener(this, AlgorithmTypes.TWO_POINTS));
-        squares.addActionListener(new ChosenAlgorithmActionListener(this, AlgorithmTypes.SQUARES_METHOD));
+//        fullAlgo.addActionListener(new ChosenAlgorithmActionListener(this, AlgorithmTypes.FULL_SEARCH));
+//        three_points.addActionListener(new ChosenAlgorithmActionListener(this, AlgorithmTypes.THREE_POINTS));
+//        two_points.addActionListener(new ChosenAlgorithmActionListener(this, AlgorithmTypes.TWO_POINTS));
+//        squares.addActionListener(new ChosenAlgorithmActionListener(this, AlgorithmTypes.SQUARES_METHOD));
         ButtonGroup bg = new ButtonGroup();
         bg.add(fullAlgo);
         bg.add(three_points);
@@ -173,8 +195,8 @@ public class GuiBuilder {
         JMenu operationMenu = new JMenu("Действия");
         JMenuItem clearFieldItemMenu = new JMenuItem("Очистить");
         JMenuItem minPointSetPanel = new JMenuItem("Минимальное число точек");
-        clearFieldItemMenu.addActionListener(new ClearButtonActionListener(this));
-        minPointSetPanel.addActionListener(new SetMinimalPointInCircleActionListener(this));
+        *//*clearFieldItemMenu.addActionListener(new ClearFormActionListener(this));
+        minPointSetPanel.addActionListener(new SetMinimalPointInCircleActionListener(this));*//*
         operationMenu.add(clearFieldItemMenu);
         operationMenu.add(minPointSetPanel);
 
@@ -229,11 +251,7 @@ public class GuiBuilder {
     public void setEnabledForButtons(boolean isEnable) {
         generateButton.setEnabled(isEnable);
         calculate.setEnabled(isEnable);
-//        saveData.setEnabled(isEnable);
-////        clear.setEnabled(isEnable);
-//        generateButton.setEnabled(isEnable);
-//        loadData.setEnabled(isEnable);
-//        calculate.setEnabled(isEnable);
+
     }
 
     public JLabel getInformationAboutOperationText() {
@@ -251,7 +269,7 @@ public class GuiBuilder {
     public synchronized void setStopAction(boolean stopAction) {
         this.setEnabledForButtons(true);
         this.stopAction = stopAction;
-    }
+    }*/
 
 }
 

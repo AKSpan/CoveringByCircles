@@ -2,6 +2,7 @@ package main.core;
 
 import main.core.objects.*;
 import main.gui.GuiBuilder;
+import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
 import java.util.*;
@@ -67,5 +68,5 @@ public interface IAlgorithm {
 
     double getCircleRadius(List<Point> coordinates);
 
-    ResultInfo calculateDensityAndDrawCircle(GuiBuilder guiBuilder);
+    ResultInfo calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder);
 }

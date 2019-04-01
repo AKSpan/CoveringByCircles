@@ -2,15 +2,16 @@ package main.core;
 
 import main.core.objects.*;
 import main.gui.GuiBuilder;
+import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
 import java.util.*;
 
 public class ThreePointsAlgorithm implements IAlgorithm {
     @Override
-    public ResultInfo calculateDensityAndDrawCircle(GuiBuilder guiBuilder) {
+    public ResultInfo calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder) {
         CoordinateSystem coordinateSystem = guiBuilder.getCoordinateSystem();
-        long minPointInCircle = guiBuilder.getMinPointsInCircle();
+        long minPointInCircle = 2;//guiBuilder.getMinPointsInCircle();
         HashSet<Point> points = coordinateSystem.getPoints();
 
         ResultInfo resultInfo = new ResultInfo();

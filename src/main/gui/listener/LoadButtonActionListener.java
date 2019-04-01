@@ -3,6 +3,7 @@ package main.gui.listener;
 import main.core.objects.Circle;
 import main.core.objects.Point;
 import main.gui.GuiBuilder;
+import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,9 +13,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class LoadButtonActionListener implements ActionListener {
-    private GuiBuilder guiBuilder;
+    private GuiBuilderV2 guiBuilder;
 
-    public LoadButtonActionListener(GuiBuilder guiBuilder) {
+    public LoadButtonActionListener(GuiBuilderV2 guiBuilder) {
         this.guiBuilder = guiBuilder;
     }
 
@@ -52,8 +53,8 @@ public class LoadButtonActionListener implements ActionListener {
                     }
                     guiBuilder.getCoordinateSystem().setCircle(circle);
                     guiBuilder.getCoordinateSystem().addPoints(points);
-                    guiBuilder.getDrawPanel().addPoints(points, circle);
-                    guiBuilder.getDrawPanel().repaint();
+//                    guiBuilder.getDrawPanel().addPoints(points, circle);
+//                    guiBuilder.getDrawPanel().repaint();
                 } catch (IOException ex) {
                     JOptionPane.showConfirmDialog(null, ex.getMessage(), "Your title here bro", JOptionPane.DEFAULT_OPTION);
                 }

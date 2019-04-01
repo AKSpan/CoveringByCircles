@@ -98,4 +98,5 @@ public class CoordinateSystem {
     public void addPoints(Set<Point> points) {
         this.points = new HashSet<>(points);
     }
+
 }

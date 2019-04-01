@@ -4,6 +4,7 @@ import main.core.math.Factorial;
 import main.core.math.Permutations;
 import main.core.objects.*;
 import main.gui.GuiBuilder;
+import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
 import java.math.BigInteger;
@@ -11,10 +12,11 @@ import java.util.*;
 
 public class TwoPointAlgorithm implements IAlgorithm {
     @Override
-    public ResultInfo calculateDensityAndDrawCircle(GuiBuilder guiBuilder) {
+    public ResultInfo calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder) {
+        guiBuilder.setStopAction(false);
         CoordinateSystem coordinateSystem = guiBuilder.getCoordinateSystem();
-        JLabel label = guiBuilder.getInformationAboutOperationText();
-        long minPointInCircle = guiBuilder.getMinPointsInCircle();
+        JLabel label = guiBuilder.getUiComponentsHolder().getOperationLabel();
+        long minPointInCircle = 2;//guiBuilder.getMinPointsInCircle();
         HashSet<Point> points = coordinateSystem.getPoints();
         Point[] objects = points.toArray(new Point[]{});
         Point p1, p2;

@@ -1,14 +1,14 @@
 package main.gui.listener;
 
-import main.gui.GuiBuilder;
+import main.gui.GuiBuilderV2;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class StopOperationActionListener implements ActionListener {
-    private GuiBuilder guiBuilder;
+    private GuiBuilderV2 guiBuilder;
 
-    public StopOperationActionListener(GuiBuilder guiBuilder) {
+    public StopOperationActionListener(GuiBuilderV2 guiBuilder) {
         this.guiBuilder = guiBuilder;
     }
 

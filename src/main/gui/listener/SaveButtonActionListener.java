@@ -1,6 +1,7 @@
 package main.gui.listener;
 
 import main.gui.GuiBuilder;
+import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -13,11 +14,11 @@ import java.io.IOException;
 
 public class SaveButtonActionListener implements ActionListener {
 
-    public SaveButtonActionListener(GuiBuilder guiBuilder) {
+    public SaveButtonActionListener(GuiBuilderV2 guiBuilder) {
         this.guiBuilder = guiBuilder;
     }
 
-    private GuiBuilder guiBuilder;
+    private GuiBuilderV2 guiBuilder;
 
     @Override
     public void actionPerformed(ActionEvent e) {
