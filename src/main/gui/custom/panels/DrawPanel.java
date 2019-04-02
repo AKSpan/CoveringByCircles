@@ -73,7 +73,12 @@ public class DrawPanel extends JPanel {
                 (resultInfo.getCircle().getCenter().getY() - resultInfo.getCircle().getRadius() + 1),
                 resultInfo.getCircle().getRadius() * 2,
                 resultInfo.getCircle().getRadius() * 2));
+        /* Отмечаем точки внутри окружности */
+        graphics.setColor(Color.RED);
 
+        for (Point point : resultInfo.getPoints()) {
+            graphics.fill(new Ellipse2D.Double(point.getX()-1, point.getY()-1, 4, 4));
+        }
 
     }
 
