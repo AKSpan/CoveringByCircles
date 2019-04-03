@@ -3,10 +3,9 @@ package main.core;
 import main.core.objects.CoordinateSystem;
 import main.core.objects.Point;
 import main.core.objects.ResultInfo;
-import main.gui.GuiBuilder;
 import main.gui.GuiBuilderV2;
 
-import javax.swing.*;
+import java.util.HashSet;
 import java.util.List;
 
 public class FullSearchAlgorithm implements IAlgorithm {
@@ -22,7 +21,13 @@ public class FullSearchAlgorithm implements IAlgorithm {
     }
 
     @Override
-    public ResultInfo calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder) {
+    public ResultInfo calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder)
+    {
+        CoordinateSystem coordinateSystem = guiBuilder.getLogicWrapper().getCoordinateSystem();
+        long minPointInCircle = guiBuilder.getLogicWrapper().getMinimalPointInCircle();
+        HashSet<Point> points = coordinateSystem.getPoints();
+        Point[] objects = points.toArray(new Point[]{});
+
         return new ResultInfo();
     }
 }

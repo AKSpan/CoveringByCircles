@@ -1,4 +1,4 @@
-package main.core;
+package main.core.math;
 
 import main.core.objects.Circle;
 import main.core.objects.CoordinateSystem;

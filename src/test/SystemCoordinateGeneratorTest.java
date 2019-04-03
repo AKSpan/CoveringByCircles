@@ -1,14 +1,11 @@
 package test;
 
 
-import main.gui.GuiBuilder;
 import main.gui.GuiBuilderV2;
 import org.junit.Test;
 
 import main.core.objects.CoordinateSystem;
-import main.core.SystemCoordinateGenerator;
-
-import javax.swing.*;
+import main.core.math.SystemCoordinateGenerator;
 
 public class SystemCoordinateGeneratorTest {
 

@@ -1,7 +1,7 @@
 package main.gui.math;
 
 import main.core.IAlgorithm;
-import main.core.SystemCoordinateGenerator;
+import main.core.math.SystemCoordinateGenerator;
 import main.core.objects.CoordinateSystem;
 
 public class LogicWrapper {

@@ -1,18 +1,5 @@
 package main.gui;
 
-import main.core.IAlgorithm;
-import main.core.SystemCoordinateGenerator;
-import main.core.TwoPointAlgorithm;
-import main.core.enums.AlgorithmTypes;
-import main.core.objects.CoordinateSystem;
-import main.gui.custom.panels.DrawPanel;
-import main.gui.listener.*;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class GuiBuilder {
   /*  private volatile boolean stopAction;
     private JFrame mainFrame;

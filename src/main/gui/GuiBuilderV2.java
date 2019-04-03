@@ -1,6 +1,6 @@
 package main.gui;
 
-import main.core.SystemCoordinateGenerator;
+import main.core.math.SystemCoordinateGenerator;
 import main.core.TwoPointAlgorithm;
 import main.core.objects.CoordinateSystem;
 import main.gui.custom.panels.FooterPanel;
