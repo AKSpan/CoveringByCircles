@@ -114,7 +114,7 @@ public class JComponentsFactory {
         saveButton.setBorderPainted(false);
         saveButton.addActionListener(applicationActionListenerHolder.getSaveToFileActionListener());
 
-        loadButton.setToolTipText("Сохранить");
+        loadButton.setToolTipText("Загрузить");
         loadButton.setSize(imageIconLoad.getIconWidth(), imageIconLoad.getIconHeight());
         loadButton.setPreferredSize(new Dimension(imageIconLoad.getIconWidth(), imageIconLoad.getIconHeight()));
         loadButton.setBorderPainted(false);
@@ -124,10 +124,24 @@ public class JComponentsFactory {
         thirdButtonRow.add(Box.createHorizontalStrut(15));
         thirdButtonRow.add(loadButton);
 
+        /* 4 */
+        JPanel fourthButtonRow = new JPanel();
+        fourthButtonRow.setLayout(new BoxLayout(fourthButtonRow, BoxLayout.X_AXIS));
+        URL resourceStopImg = JComponentsFactory.class.getClassLoader().getResource("stop.png");
+        ImageIcon imageIconStop = new ImageIcon(resourceStopImg);
+        JButton stopButton = new JButton(imageIconStop);
+        stopButton.setToolTipText("Остановить");
+        stopButton.setSize(imageIconStop.getIconWidth(), imageIconStop.getIconHeight());
+        stopButton.setPreferredSize(new Dimension(imageIconStop.getIconWidth(), imageIconStop.getIconHeight()));
+        stopButton.setBorderPainted(false);
+        stopButton.addActionListener(applicationActionListenerHolder.getStopOperationActionListener());
+        fourthButtonRow.add(stopButton);
+
 
         leftPanel.add(firstButtonRow);
         leftPanel.add(secondButtonRow);
         leftPanel.add(thirdButtonRow);
+        leftPanel.add(fourthButtonRow);
 
         return leftPanel;
     }

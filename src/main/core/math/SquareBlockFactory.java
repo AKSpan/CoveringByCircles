@@ -26,8 +26,10 @@ public class SquareBlockFactory {
     private List<SquareBlock> getBlocks() {
         this.squareBlocks = new ArrayList<>(4);
 
-        int stepX = (sizeX - initX) / 2;
-        int stepY = (sizeY - initY) / 2;
+        int step = sizeX > sizeY ? sizeX / 2 : sizeY / 2;
+
+        int stepX = step;// (sizeX + initX) / 2;
+        int stepY = step;//(sizeY + initY) / 2;
         this.squareBlocks.add(new SquareBlock(initX, initY, stepX, stepY));
         this.squareBlocks.add(new SquareBlock(initX + stepX, initY, stepX, stepY));
         this.squareBlocks.add(new SquareBlock(initX, initY + stepY, stepX, stepY));
