@@ -38,4 +38,8 @@ public class ApplicationActionListenerHolder {
         return new StopOperationActionListener(this.guiBuilderV2);
     }
 
+    public ActionListener getSetSquareDeepValue() {
+        return new SetSquareDeepValueActionListener(this.guiBuilderV2);
+    }
+
 }

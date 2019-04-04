@@ -7,6 +7,7 @@ import java.util.List;
  * Объект с полной информацией об результате вычислений
  */
 public class ResultInfo {
+    private List<SquareBlock> squareBlocks;
     /**
      * Результирующая окружность
      */
@@ -25,6 +26,13 @@ public class ResultInfo {
     }
 
     public ResultInfo(Circle circle, List<Point> points, String algorithmNameLabel) {
+        this.circle = circle;
+        this.points = points;
+        this.algorithmNameLabel = algorithmNameLabel;
+    }
+
+    public ResultInfo(List<SquareBlock> squareBlocks, Circle circle, List<Point> points, String algorithmNameLabel) {
+        this.squareBlocks = squareBlocks;
         this.circle = circle;
         this.points = points;
         this.algorithmNameLabel = algorithmNameLabel;
@@ -52,5 +60,14 @@ public class ResultInfo {
 
     public void setAlgorithmNameLabel(String algorithmNameLabel) {
         this.algorithmNameLabel = algorithmNameLabel;
+    }
+
+    public List<SquareBlock> getSquareBlocks() {
+        return squareBlocks;
+    }
+
+    public ResultInfo setSquareBlocks(List<SquareBlock> squareBlocks) {
+        this.squareBlocks = squareBlocks;
+        return this;
     }
 }

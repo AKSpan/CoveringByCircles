@@ -5,6 +5,7 @@ import main.core.enums.AlgorithmTypes;
 import main.gui.GuiBuilder;
 import main.gui.GuiBuilderV2;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

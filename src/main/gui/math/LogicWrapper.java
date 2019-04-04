@@ -28,6 +28,10 @@ public class LogicWrapper {
      */
     private Long minimalPointInCircle = 2L;
 
+    /**
+     * Глубина разбиения в методе квадрантов
+     */
+    private int squareDeepValue = 2;
     public Long getMinimalPointInCircle() {
         return minimalPointInCircle;
     }
@@ -70,6 +74,20 @@ public class LogicWrapper {
 
     public LogicWrapper setAlgorithm(IAlgorithm algorithm) {
         this.algorithm = algorithm;
+        return this;
+    }
+
+    public LogicWrapper setMinimalPointInCircle(Long minimalPointInCircle) {
+        this.minimalPointInCircle = minimalPointInCircle;
+        return this;
+    }
+
+    public int getSquareDeepValue() {
+        return squareDeepValue;
+    }
+
+    public LogicWrapper setSquareDeepValue(int squareDeepValue) {
+        this.squareDeepValue = squareDeepValue;
         return this;
     }
 }

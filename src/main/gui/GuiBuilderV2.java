@@ -50,7 +50,7 @@ public class GuiBuilderV2 {
         uiComponentsHolder.setFooter(footerPanel1.getFooter());
         uiComponentsHolder.setOperationLabel(footerPanel1.getLabel());
         uiComponentsHolder.setLeftPanel(JComponentsFactory.leftPanel(applicationActionListenerHolder));
-        uiComponentsHolder.setRightPanel(JComponentsFactory.rightPanel(applicationActionListenerHolder));
+        uiComponentsHolder.setRightPanel(JComponentsFactory.rightPanel());
         uiComponentsHolder.setMenu(JComponentsFactory.menu(applicationActionListenerHolder));
         uiComponentsHolder.setDrawPanel(JComponentsFactory.drawPanel(SYSTEM_COORDINATE_SIZE_X, SYSTEM_COORDINATE_SIZE_Y, this));
 

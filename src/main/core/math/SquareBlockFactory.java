@@ -3,6 +3,8 @@ package main.core.math;
 import main.core.objects.Point;
 import main.core.objects.SquareBlock;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -12,14 +14,16 @@ public class SquareBlockFactory {
     private int blockDividerCounter;
     private List<SquareBlock> squareBlocks;
     private int sizeX, sizeY, initX, initY;
+    private Graphics2D graphics2D;
 
-    public SquareBlockFactory(int sizeX, int sizeY, int initX, int initY, Set<Point> points, int blockDividerCounter) {
+    public SquareBlockFactory(int sizeX, int sizeY, int initX, int initY, Set<Point> points, int blockDividerCounter, Graphics2D graphics2D) {
         this.blockDividerCounter = blockDividerCounter;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.initX = initX;
         this.initY = initY;
         this.points = points;
+        this.graphics2D = graphics2D;
 
     }
 
@@ -34,7 +38,19 @@ public class SquareBlockFactory {
         this.squareBlocks.add(new SquareBlock(initX + stepX, initY, stepX, stepY));
         this.squareBlocks.add(new SquareBlock(initX, initY + stepY, stepX, stepY));
         this.squareBlocks.add(new SquareBlock(initX + stepX, initY + stepY, stepX, stepY));
+      //  this.drawSquareBlockOnDrawPanel();
         return this.squareBlocks;
+    }
+
+    private void drawSquareBlockOnDrawPanel() {
+        if (this.graphics2D != null) {
+            graphics2D.setBackground(Color.BLUE);
+            for (SquareBlock squareBlock : this.squareBlocks) {
+                graphics2D.drawString("text", squareBlock.getStepX(), squareBlock.getStepY());
+
+            }
+
+        }
     }
 
     public SquareBlock getBlockWithMaxPointsInside(long minPoints) {
@@ -59,7 +75,7 @@ public class SquareBlockFactory {
                         squareBlock.getStartX(),
                         squareBlock.getStartY(),
                         points,
-                        this.blockDividerCounter).getBlocks();
+                        this.blockDividerCounter, this.graphics2D).getBlocks();
             }
         }
 

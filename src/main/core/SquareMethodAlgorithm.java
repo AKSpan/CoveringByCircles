@@ -10,12 +10,12 @@ import main.gui.GuiBuilder;
 import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.awt.*;
+import java.util.*;
 import java.util.List;
 
 public class SquareMethodAlgorithm implements IAlgorithm {
-    private final static int SQUARE_DEEP = 16;//степень 2ки
+    private final static int SQUARE_DEEP = 1;//степень 2ки
 
     @Override
     public String getAlgorithmName() {
@@ -41,11 +41,12 @@ public class SquareMethodAlgorithm implements IAlgorithm {
                         0,
                         0,
                         points,
-                        SQUARE_DEEP),
+                        guiBuilder.getLogicWrapper().getSquareDeepValue(), (Graphics2D) guiBuilder.getUiComponentsHolder().getDrawPanel().getGraphics()),
                 minPointInCircle);
 
         ResultInfo rs = new ResultInfo();
         Circle circle = getCircleOutSquare.getCircle();
+        rs.setSquareBlocks(Collections.singletonList(getCircleOutSquare.getSquareBlock()));
         List<Point> pointInside = new ArrayList<>();
         for (Point point : points) {
             if (circle.isPointInCircle(point))

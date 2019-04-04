@@ -1,20 +1,16 @@
 package main.gui.factory;
 
 import main.core.enums.AlgorithmTypes;
-import main.core.objects.CoordinateSystem;
-import main.gui.GuiBuilder;
 import main.gui.GuiBuilderV2;
 import main.gui.custom.panels.DrawPanel;
 import main.gui.custom.panels.FooterPanel;
-import main.gui.listener.*;
+import main.gui.listener.ApplicationActionListenerHolder;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.IconUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 
 public class JComponentsFactory {
@@ -146,7 +142,7 @@ public class JComponentsFactory {
         return leftPanel;
     }
 
-    public static JPanel rightPanel(ApplicationActionListenerHolder applicationActionListenerHolder) {
+    public static JPanel rightPanel() {
         JPanel rightPanel = new JPanel();
         rightPanel.setSize(SIZE_200, SIZE_600);
         rightPanel.setPreferredSize(new Dimension(SIZE_200, SIZE_600));
@@ -224,13 +220,18 @@ public class JComponentsFactory {
 
     private static JMenu createOperationMenu(ApplicationActionListenerHolder applicationActionListenerHolder) {
         JMenu operationMenu = new JMenu("Действия");
+        operationMenu.setName("operationMenu");
         JMenuItem clearFieldItemMenu = new JMenuItem("Очистить");
         JMenuItem minPointSetPanel = new JMenuItem("Минимальное число точек");
+        JMenuItem squareDeepValueMenu = new JMenuItem("Глубина построения квадратов");
+
         operationMenu.add(clearFieldItemMenu);
         operationMenu.add(minPointSetPanel);
+        operationMenu.add(squareDeepValueMenu);
 
         clearFieldItemMenu.addActionListener(applicationActionListenerHolder.getClearFormActionListener());
         minPointSetPanel.addActionListener(applicationActionListenerHolder.getSetMinimalPointsInCircleActionListener());
+        squareDeepValueMenu.addActionListener(applicationActionListenerHolder.getSetSquareDeepValue());
 
         return operationMenu;
     }

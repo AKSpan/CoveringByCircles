@@ -1,10 +1,8 @@
 package main.gui.custom.panels;
 
 import main.core.IAlgorithm;
-import main.core.objects.Circle;
-import main.core.objects.CoordinateSystem;
+import main.core.objects.*;
 import main.core.objects.Point;
-import main.core.objects.ResultInfo;
 import main.gui.GuiBuilderV2;
 import main.gui.listener.AddPointToSystemCoordinateMouseListener;
 
@@ -77,7 +75,14 @@ public class DrawPanel extends JPanel {
         graphics.setColor(Color.RED);
 
         for (Point point : resultInfo.getPoints()) {
-            graphics.fill(new Ellipse2D.Double(point.getX()-1, point.getY()-1, 4, 4));
+            graphics.fill(new Ellipse2D.Double(point.getX() - 1, point.getY() - 1, 4, 4));
+        }
+        if (resultInfo.getSquareBlocks() != null) {
+            graphics.setBackground(Color.BLUE);
+            for (SquareBlock squareBlock : resultInfo.getSquareBlocks()) {
+                graphics.drawRect(squareBlock.getStartX(), squareBlock.getStartY(), squareBlock.getStepX(), squareBlock.getStepY());
+            }
+
         }
 
     }
@@ -105,5 +110,10 @@ public class DrawPanel extends JPanel {
 
     public CoordinateSystem getCoordinateSystem() {
         return coordinateSystem;
+    }
+
+    @Override
+    public Graphics getGraphics() {
+        return super.getGraphics();
     }
 }
