@@ -1,26 +1,30 @@
 package main.gui.listener;
 
+import main.core.enums.LoggerTextTemplates;
 import main.core.objects.Point;
 import main.gui.GuiBuilderV2;
+import main.gui.UILogger;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class AddPointToSystemCoordinateMouseListener implements MouseListener {
+public class AddPointToSystemCoordinateMouseListener extends AbstractLogger implements MouseListener {
     private GuiBuilderV2 guiBuilderV2;
 
     public AddPointToSystemCoordinateMouseListener(GuiBuilderV2 guiBuilderV2) {
+        super(new UILogger(guiBuilderV2.getUiComponentsHolder()));
         this.guiBuilderV2 = guiBuilderV2;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("AddPointToSystemCoordinateMouseListener");
-
         int x = e.getX();
         int y = e.getY();
-        if (x <= this.guiBuilderV2.getLogicWrapper().getCoordinateSystem().getMaxX() && y <= this.guiBuilderV2.getLogicWrapper().getCoordinateSystem().getMaxY()) {
-            this.guiBuilderV2.getLogicWrapper().getCoordinateSystem().addPoint(new Point(x, y));
+        if (x <= this.guiBuilderV2.getLogicWrapper().getCoordinateSystem().getMaxX() && y <= this.guiBuilderV2.getLogicWrapper().getCoordinateSystem().getMaxY()
+                && x >= this.guiBuilderV2.getUiComponentsHolder().getMarginX() && y >= this.guiBuilderV2.getUiComponentsHolder().getMarginY()) {
+            Point point = new Point(x, y);
+            this.log(LoggerTextTemplates.addPointEvent(point));
+            this.guiBuilderV2.getLogicWrapper().getCoordinateSystem().addPoint(point);
             this.guiBuilderV2.getUiComponentsHolder().getDrawPanel().addPoints(this.guiBuilderV2.getLogicWrapper().getCoordinateSystem(), null);
             this.guiBuilderV2.getUiComponentsHolder().setLabelText(String.format("Точек %s", this.guiBuilderV2.getLogicWrapper().getCoordinateSystem().getPoints().size()));
         }

@@ -18,16 +18,22 @@ import java.util.Random;
 public class SystemCoordinateGenerator {
     private int maxX, maxY, pointCount;
     private CoordinateSystem coordinateSystem;
+    private int marginY;
+    private int marginX;
 
     public CoordinateSystem getCoordinateSystem() {
         return coordinateSystem;
     }
 
-    public SystemCoordinateGenerator(int maxX, int maxY, int pointCount) {
+    public SystemCoordinateGenerator(int maxX, int maxY, int pointCount, int marginX, int marginY) {
         this.maxX = maxX;
-        this.maxY = maxY;
+        this.maxY = maxX;
+        this.marginX = marginX;
+        this.marginY = marginY;
         this.pointCount = pointCount;
+
         System.out.printf("MaxX %s; MaxY %s\n", maxX, maxY);
+        System.out.printf("marginX %s; marginY %s\n", marginX, marginY);
 
     }
 
@@ -47,7 +53,7 @@ public class SystemCoordinateGenerator {
                 //объект для генерации случайных чисел
                 Random rnd = new Random();
                 //Создаем точку с координатами в диапозоне координат 0 < X <  MAX_X; 0 < Y < MAX_Y
-                Point p = new Point(rnd.nextInt((maxX - 29) + 1) + 10, rnd.nextInt((maxY - 88) + 1) + 10);
+                Point p = new Point(rnd.nextInt((maxX - 29) + 1) + this.marginX, rnd.nextInt((maxY - 88) + 1) + this.marginY);
                 gui.getUiComponentsHolder().setLabelText(String.format("Шаг %s/%s", i + 1, pointCount));
                 //добавляем в массив точек системы координат нашу точку
                 coordinateSystem.addPoint(p);

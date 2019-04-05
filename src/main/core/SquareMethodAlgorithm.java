@@ -15,7 +15,6 @@ import java.util.*;
 import java.util.List;
 
 public class SquareMethodAlgorithm implements IAlgorithm {
-    private final static int SQUARE_DEEP = 1;//степень 2ки
 
     @Override
     public String getAlgorithmName() {
@@ -36,11 +35,7 @@ public class SquareMethodAlgorithm implements IAlgorithm {
 
         GetCircleOutSquare getCircleOutSquare = new GetCircleOutSquare(
                 new SquareBlockFactory(
-                        coordinateSystem.getMaxX(),
-                        coordinateSystem.getMaxY(),
-                        0,
-                        0,
-                        points,
+                        coordinateSystem,
                         guiBuilder.getLogicWrapper().getSquareDeepValue(), (Graphics2D) guiBuilder.getUiComponentsHolder().getDrawPanel().getGraphics()),
                 minPointInCircle);
 

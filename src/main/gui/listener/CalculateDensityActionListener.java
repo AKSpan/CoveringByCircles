@@ -1,12 +1,14 @@
 package main.gui.listener;
 
+import main.core.enums.LoggerTextTemplates;
 import main.gui.GuiBuilderV2;
+import main.gui.UILogger;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CalculateDensityActionListener implements ActionListener {
+public class CalculateDensityActionListener extends AbstractLogger implements ActionListener {
     private GuiBuilderV2 guiBuilder;
     private static final String LESS_THAN_MIN_POINTS = "Количество точек в системе координат меньше чем заданый параметр минимального числа точек в окружности %s";
 
@@ -15,6 +17,7 @@ public class CalculateDensityActionListener implements ActionListener {
     }
 
     public CalculateDensityActionListener(GuiBuilderV2 guiBuilder) {
+       super(new UILogger(guiBuilder.getUiComponentsHolder()));
         this.guiBuilder = guiBuilder;
     }
 
@@ -28,9 +31,9 @@ public class CalculateDensityActionListener implements ActionListener {
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-
+                    CalculateDensityActionListener.this.log(LoggerTextTemplates.calculatingDensity());
                     guiBuilder.getUiComponentsHolder().setEnabledForButtons(false);
-                    guiBuilder.getUiComponentsHolder().getDrawPanel().calculateDensityAndDrawCircle(guiBuilder);
+                    guiBuilder.getUiComponentsHolder().getDrawPanel().calculateDensityAndDrawCircle(guiBuilder,new AbstractLogger(new UILogger(guiBuilder.getUiComponentsHolder())));
                     guiBuilder.getUiComponentsHolder().setEnabledForButtons(true);
                 }
 

@@ -1,17 +1,22 @@
 package main.gui.custom.panels;
 
 import main.core.IAlgorithm;
+import main.core.enums.LoggerTextTemplates;
 import main.core.objects.*;
 import main.core.objects.Point;
 import main.gui.GuiBuilderV2;
+import main.gui.UILogger;
+import main.gui.listener.AbstractLogger;
 import main.gui.listener.AddPointToSystemCoordinateMouseListener;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 import java.util.Set;
 
 public class DrawPanel extends JPanel {
+    private static final int MARGIN_X = 50, MARGIN_Y = 50;
     private CoordinateSystem coordinateSystem;
     private JTextField jTextField;
     private GuiBuilderV2 guiBuilderV2;
@@ -19,7 +24,7 @@ public class DrawPanel extends JPanel {
     public DrawPanel(GuiBuilderV2 guiBuilderV2) {
         this.guiBuilderV2 = guiBuilderV2;
         this.coordinateSystem = guiBuilderV2.getLogicWrapper().getCoordinateSystem();
-        this.setBackground(Color.WHITE);
+        this.setBackground(Color.CYAN);
         this.addMouseListener(new AddPointToSystemCoordinateMouseListener(this.guiBuilderV2));
     }
 
@@ -28,8 +33,8 @@ public class DrawPanel extends JPanel {
         super.paintComponent(g2d);
         g2d.setColor(Color.red);
 
-        g2d.drawLine(10, 10, 10, this.getHeight() - 10);
-        g2d.drawLine(10, this.getHeight() - 10, this.getWidth() - 10, this.getHeight() - 10);
+        g2d.drawLine(MARGIN_X, MARGIN_Y, MARGIN_X, this.getHeight() - MARGIN_Y);
+        g2d.drawLine(MARGIN_X, this.getHeight() - MARGIN_Y, this.getWidth() - MARGIN_X, this.getHeight() - MARGIN_Y);
     }
 
     public void addPoints(CoordinateSystem coordinateSystem, Circle c) {
@@ -59,9 +64,10 @@ public class DrawPanel extends JPanel {
     }
 
 
-    public void calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder) {
+    public void calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder, AbstractLogger abstractLogger) {
         IAlgorithm algorithm = guiBuilder.getLogicWrapper().getAlgorithm();
         ResultInfo resultInfo = algorithm.calculateDensityAndDrawCircle(guiBuilder);
+        abstractLogger.log(LoggerTextTemplates.calculatingProcess());
         //Стираем предыдущую окружность
         this.addPoints(this.coordinateSystem.getPoints(), null);
         //Рисуем новую
@@ -80,7 +86,7 @@ public class DrawPanel extends JPanel {
         if (resultInfo.getSquareBlocks() != null) {
             graphics.setBackground(Color.BLUE);
             for (SquareBlock squareBlock : resultInfo.getSquareBlocks()) {
-                graphics.drawRect(squareBlock.getStartX(), squareBlock.getStartY(), squareBlock.getStepX(), squareBlock.getStepY());
+                graphics.draw(new Rectangle2D.Double(squareBlock.getStartX(), squareBlock.getStartY(), squareBlock.getStepX(), squareBlock.getStepY()));
             }
 
         }

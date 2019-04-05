@@ -4,6 +4,7 @@ import main.core.enums.AlgorithmTypes;
 import main.gui.GuiBuilderV2;
 import main.gui.custom.panels.DrawPanel;
 import main.gui.custom.panels.FooterPanel;
+import main.gui.custom.panels.RightPanel;
 import main.gui.listener.ApplicationActionListenerHolder;
 
 import javax.swing.*;
@@ -142,13 +143,26 @@ public class JComponentsFactory {
         return leftPanel;
     }
 
-    public static JPanel rightPanel() {
+    public static RightPanel rightPanel(ApplicationActionListenerHolder applicationActionListenerHolder) {
         JPanel rightPanel = new JPanel();
-        rightPanel.setSize(SIZE_200, SIZE_600);
+        rightPanel.setSize(SIZE_200, SIZE_700);
         rightPanel.setPreferredSize(new Dimension(SIZE_200, SIZE_600));
         rightPanel.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, Color.BLACK));
+        rightPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-        return rightPanel;
+
+        JTextArea textArea = new JTextArea(32, 19);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setEditable(false);
+        textArea.setFont(new Font("AppFont", Font.PLAIN, 10));
+        JScrollPane jScrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        rightPanel.add(jScrollPane);
+
+        RightPanel panel = new RightPanel(rightPanel, textArea);
+
+        return panel;
     }
 
     public static JMenuBar menu(ApplicationActionListenerHolder applicationActionListenerHolder) {
@@ -162,8 +176,7 @@ public class JComponentsFactory {
 
     public static DrawPanel drawPanel(int x, int y, GuiBuilderV2 guiBuilder) {
         DrawPanel drawPanel = new DrawPanel(guiBuilder);
-        drawPanel.setSize(x, y);
-        drawPanel.setPreferredSize(new Dimension(x, y));
+
         return drawPanel;
     }
 

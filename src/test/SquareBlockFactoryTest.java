@@ -14,9 +14,10 @@ public class SquareBlockFactoryTest {
 
     @Test
     public void getBlocks() {
-        SystemCoordinateGenerator systemCoordinateGenerator = new SystemCoordinateGenerator(400, 400, 100);
+        SystemCoordinateGenerator systemCoordinateGenerator = new SystemCoordinateGenerator(100, 100, 50,10,10);
         CoordinateSystem generate = systemCoordinateGenerator.generate(new GuiBuilderV2().build());
-        SquareBlockFactory squareBlockFactory = new SquareBlockFactory(400, 400, 0, 0, generate.getPoints(), 4,null);
+
+        SquareBlockFactory squareBlockFactory = new SquareBlockFactory(generate, 4,null);
         System.out.println(squareBlockFactory.getBlockWithMaxPointsInside(35));
         GetCircleOutSquare getCircleOutSquare = new GetCircleOutSquare(squareBlockFactory,35);
         System.out.println(getCircleOutSquare.getCircle());

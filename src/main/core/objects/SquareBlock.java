@@ -7,10 +7,10 @@ import java.util.Set;
  * Класс описывающий блок в системе координат для поиска точек
  */
 public class SquareBlock {
-    private int startX, startY, stepX, stepY;
+    private double startX, startY, stepX, stepY;
     private Set<Point> pointInside;
 
-    public SquareBlock(int startX, int startY, int stepX, int stepY) {
+    public SquareBlock(double startX, double startY, double stepX, double stepY) {
         this.pointInside = new HashSet<>();
         this.startX = startX;
         this.startY = startY;
@@ -18,19 +18,19 @@ public class SquareBlock {
         this.stepY = stepY;
     }
 
-    public int getStartX() {
+    public double getStartX() {
         return startX;
     }
 
-    public int getStartY() {
+    public double getStartY() {
         return startY;
     }
 
-    public int getStepX() {
+    public double getStepX() {
         return stepX;
     }
 
-    public int getStepY() {
+    public double getStepY() {
         return stepY;
     }
 

@@ -47,6 +47,16 @@ public class Point {
     }
     //Для корректной работы при добавлении точки в соответствующий список, нужно описать работу спец. методов
 
+    public Point setX(double x) {
+        this.x = x;
+        return this;
+    }
+
+    public Point setY(double y) {
+        this.y = y;
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

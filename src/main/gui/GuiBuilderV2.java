@@ -12,11 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GuiBuilderV2 {
-    private static final int SIZE_X = 900;
-    private static final int SYSTEM_COORDINATE_SIZE_X = 400;
-    private static final int SIZE_Y = 600;
-    private static final int SYSTEM_COORDINATE_SIZE_Y = 400;
-    private static final Dimension MAIN_FRAME_SIZE = new Dimension(SIZE_X, SIZE_Y);
+
 
     /**
      * Главная форма приложения. Она наполняется компонентами.
@@ -37,32 +33,35 @@ public class GuiBuilderV2 {
     }
 
     public GuiBuilderV2 build() {
+
         /* заполняем начальную логику. Алгоритм по умолчанию - две точки */
         this.logicWrapper = new LogicWrapper()
                 .setStopAction(false)
                 .setAlgorithm(new TwoPointAlgorithm())
-                .setSystemCoordinateGenerator(new SystemCoordinateGenerator(SYSTEM_COORDINATE_SIZE_X, SYSTEM_COORDINATE_SIZE_Y, 0))
-                .setCoordinateSystem(new CoordinateSystem(SYSTEM_COORDINATE_SIZE_X, SYSTEM_COORDINATE_SIZE_Y));
+                .setSystemCoordinateGenerator(new SystemCoordinateGenerator(uiComponentsHolder.getSystemCoordinateSizeX(), uiComponentsHolder.getSystemCoordinateSizeY(), 0, uiComponentsHolder.getMarginX(), uiComponentsHolder.getMarginY()))
+                .setCoordinateSystem(new CoordinateSystem(uiComponentsHolder.getSystemCoordinateSizeX(), uiComponentsHolder.getSystemCoordinateSizeY()));
         /* Объект с логикой действий для кнопок и компонентов  */
         ApplicationActionListenerHolder applicationActionListenerHolder = new ApplicationActionListenerHolder(this);
-        uiComponentsHolder = new ApplicationUIComponentsHolder();
+
         FooterPanel footerPanel1 = JComponentsFactory.getFooterPanel();
         uiComponentsHolder.setFooter(footerPanel1.getFooter());
         uiComponentsHolder.setOperationLabel(footerPanel1.getLabel());
         uiComponentsHolder.setLeftPanel(JComponentsFactory.leftPanel(applicationActionListenerHolder));
-        uiComponentsHolder.setRightPanel(JComponentsFactory.rightPanel());
+        uiComponentsHolder.setRightPanel(JComponentsFactory.rightPanel(applicationActionListenerHolder));
         uiComponentsHolder.setMenu(JComponentsFactory.menu(applicationActionListenerHolder));
-        uiComponentsHolder.setDrawPanel(JComponentsFactory.drawPanel(SYSTEM_COORDINATE_SIZE_X, SYSTEM_COORDINATE_SIZE_Y, this));
+        uiComponentsHolder.setDrawPanel(JComponentsFactory.drawPanel(uiComponentsHolder.getSystemCoordinateSizeX(), uiComponentsHolder.getSystemCoordinateSizeY(), this));
 
         this.mainFrame.add(uiComponentsHolder.getFooter(), BorderLayout.SOUTH);
         this.mainFrame.add(uiComponentsHolder.getLeftPanel(), BorderLayout.WEST);
-        this.mainFrame.add(uiComponentsHolder.getRightPanel(), BorderLayout.EAST);
+        this.mainFrame.add(uiComponentsHolder.getRightPanel().getRightPanel(), BorderLayout.EAST);
         this.mainFrame.add(uiComponentsHolder.getDrawPanel(), BorderLayout.CENTER);
         this.mainFrame.setJMenuBar(uiComponentsHolder.getMenu());
         return this;
     }
 
     public void show() {
+        /* фиксируем размер */
+        this.mainFrame.setResizable(false);
         /* выставляем видимость форме для отображения на экране */
         this.mainFrame.setVisible(true);
         /* "упаковка" компонентов на форме */
@@ -70,14 +69,15 @@ public class GuiBuilderV2 {
     }
 
     private void initUI() {
+        uiComponentsHolder = new ApplicationUIComponentsHolder();
         /* создаем главную форму и указываем заголовок */
         this.mainFrame = new JFrame("Поиск максимальной плотности на площадь окружности");
         /* задаем операцию по нажатию на крестик */
         this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         /* задаем размеры формы для различных вычислений */
-        this.mainFrame.setSize(MAIN_FRAME_SIZE);
+        this.mainFrame.setSize(uiComponentsHolder.getMainFrameSize());
         /* задаем визуальные размеры формы */
-        this.mainFrame.setPreferredSize(MAIN_FRAME_SIZE);
+        this.mainFrame.setPreferredSize(uiComponentsHolder.getMainFrameSize());
         /* задаем тип лэйаута для размещения компонентов */
         this.mainFrame.setLayout(new BorderLayout());
 

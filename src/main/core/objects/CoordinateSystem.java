@@ -10,6 +10,8 @@ import java.util.Set;
  */
 public class CoordinateSystem {
     private int maxX, maxY;
+    private double minX, minY;
+    private Point minPoint;
     //HashSet - так называемый список не повторяемых объектов - удобный для работы массив
     private HashSet<Point> points;
     private HashSet<Circle> circles;
@@ -34,6 +36,20 @@ public class CoordinateSystem {
      * Метод для добавления точки в систему координат.
      */
     public void addPoint(Point p) {
+        if (this.minPoint == null) {
+            minX = maxX+1;minY=maxY+1;
+            this.minPoint = new Point(minX, minY);
+        }
+        if(p.getX() <= this.minPoint.getX()) {
+            this.minX = p.getX();
+            this.minPoint.setX(p.getX());
+        }
+        if(p.getY()<=this.minPoint.getY())
+        {
+            this.minY = p.getY();
+            this.minPoint.setY(p.getY());
+
+        }
         this.points.add(p);
     }
 
@@ -98,4 +114,11 @@ public class CoordinateSystem {
         this.points = new HashSet<>(points);
     }
 
+    public double getMinX() {
+        return minX;
+    }
+
+    public double getMinY() {
+        return minY;
+    }
 }
