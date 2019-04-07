@@ -59,6 +59,7 @@ public class SystemCoordinateGenerator {
                 coordinateSystem.addPoint(p);
                 coordinateSystem.addCircle(new Circle(p, 10));
             }
+            else break;
         }
         //после генерации возвращаем созданый и заполненный точками объект
         return coordinateSystem;

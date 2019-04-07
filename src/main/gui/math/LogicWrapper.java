@@ -4,11 +4,13 @@ import main.core.IAlgorithm;
 import main.core.math.SystemCoordinateGenerator;
 import main.core.objects.CoordinateSystem;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 public class LogicWrapper {
     /**
      * Флаг остановки процесса вычисления (генерации точек, подсчёта плотности)
      */
-    private volatile boolean stopAction;
+    private volatile AtomicBoolean stopAction;
     /**
      * Система координат
      */
@@ -32,6 +34,7 @@ public class LogicWrapper {
      * Глубина разбиения в методе квадрантов
      */
     private int squareDeepValue = 2;
+
     public Long getMinimalPointInCircle() {
         return minimalPointInCircle;
     }
@@ -42,11 +45,11 @@ public class LogicWrapper {
     }
 
     public boolean isStopAction() {
-        return stopAction;
+        return stopAction.get();
     }
 
     public LogicWrapper setStopAction(boolean stopAction) {
-        this.stopAction = stopAction;
+        this.stopAction = new AtomicBoolean(stopAction);
         return this;
     }
 

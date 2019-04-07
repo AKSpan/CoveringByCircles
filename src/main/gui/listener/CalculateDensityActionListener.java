@@ -1,5 +1,6 @@
 package main.gui.listener;
 
+import main.core.ThreadFactory;
 import main.core.enums.LoggerTextTemplates;
 import main.gui.GuiBuilderV2;
 import main.gui.UILogger;
@@ -17,7 +18,7 @@ public class CalculateDensityActionListener extends AbstractLogger implements Ac
     }
 
     public CalculateDensityActionListener(GuiBuilderV2 guiBuilder) {
-       super(new UILogger(guiBuilder.getUiComponentsHolder()));
+        super(new UILogger(guiBuilder.getUiComponentsHolder()));
         this.guiBuilder = guiBuilder;
     }
 
@@ -28,17 +29,7 @@ public class CalculateDensityActionListener extends AbstractLogger implements Ac
             JOptionPane.showConfirmDialog(null, this.getErrorMessageWithMinPointsCount(), "Ошибка вычисления", JOptionPane.DEFAULT_OPTION);
 
         } else {
-            Thread thread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    CalculateDensityActionListener.this.log(LoggerTextTemplates.calculatingDensity());
-                    guiBuilder.getUiComponentsHolder().setEnabledForButtons(false);
-                    guiBuilder.getUiComponentsHolder().getDrawPanel().calculateDensityAndDrawCircle(guiBuilder,new AbstractLogger(new UILogger(guiBuilder.getUiComponentsHolder())));
-                    guiBuilder.getUiComponentsHolder().setEnabledForButtons(true);
-                }
-
-            });
-            thread.start();
+            guiBuilder.getExecutorServiceWrapper().execute(ThreadFactory.calculateDensity(guiBuilder, this));
         }
 
     }

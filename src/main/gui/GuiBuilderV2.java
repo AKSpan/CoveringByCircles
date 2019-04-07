@@ -1,5 +1,7 @@
 package main.gui;
 
+import main.core.ExecutorServiceWrapper;
+import main.core.ThreadFactory;
 import main.core.math.SystemCoordinateGenerator;
 import main.core.TwoPointAlgorithm;
 import main.core.objects.CoordinateSystem;
@@ -15,10 +17,6 @@ public class GuiBuilderV2 {
 
 
     /**
-     * Главная форма приложения. Она наполняется компонентами.
-     */
-    private JFrame mainFrame;
-    /**
      * Объект со всеми ключевыми компонентами формы
      */
     private ApplicationUIComponentsHolder uiComponentsHolder;
@@ -28,8 +26,19 @@ public class GuiBuilderV2 {
      */
     private LogicWrapper logicWrapper;
 
+    /**
+     * Сервис для работы с потоками в приложении
+     */
+    private ExecutorServiceWrapper executorServiceWrapper;
+
     public GuiBuilderV2() {
-        this.initUI();
+
+        this.executorServiceWrapper = new ExecutorServiceWrapper();
+        this.uiComponentsHolder = new ApplicationUIComponentsHolder();
+        this.uiComponentsHolder.initMainFormUI();
+
+        /**********/
+        this.getExecutorServiceWrapper().execute(ThreadFactory.checkThreads(this));
     }
 
     public GuiBuilderV2 build() {
@@ -51,44 +60,21 @@ public class GuiBuilderV2 {
         uiComponentsHolder.setMenu(JComponentsFactory.menu(applicationActionListenerHolder));
         uiComponentsHolder.setDrawPanel(JComponentsFactory.drawPanel(uiComponentsHolder.getSystemCoordinateSizeX(), uiComponentsHolder.getSystemCoordinateSizeY(), this));
 
-        this.mainFrame.add(uiComponentsHolder.getFooter(), BorderLayout.SOUTH);
-        this.mainFrame.add(uiComponentsHolder.getLeftPanel(), BorderLayout.WEST);
-        this.mainFrame.add(uiComponentsHolder.getRightPanel().getRightPanel(), BorderLayout.EAST);
-        this.mainFrame.add(uiComponentsHolder.getDrawPanel(), BorderLayout.CENTER);
-        this.mainFrame.setJMenuBar(uiComponentsHolder.getMenu());
+        this.getUiComponentsHolder().getMainFrame().add(uiComponentsHolder.getFooter(), BorderLayout.SOUTH);
+        this.getUiComponentsHolder().getMainFrame().add(uiComponentsHolder.getLeftPanel(), BorderLayout.WEST);
+        this.getUiComponentsHolder().getMainFrame().add(uiComponentsHolder.getRightPanel().getRightPanel(), BorderLayout.EAST);
+        this.getUiComponentsHolder().getMainFrame().add(uiComponentsHolder.getDrawPanel(), BorderLayout.CENTER);
+        this.getUiComponentsHolder().getMainFrame().setJMenuBar(uiComponentsHolder.getMenu());
         return this;
     }
 
     public void show() {
         /* фиксируем размер */
-        this.mainFrame.setResizable(false);
+        this.getUiComponentsHolder().getMainFrame().setResizable(false);
         /* выставляем видимость форме для отображения на экране */
-        this.mainFrame.setVisible(true);
+        this.getUiComponentsHolder().getMainFrame().setVisible(true);
         /* "упаковка" компонентов на форме */
-        this.mainFrame.pack();
-    }
-
-    private void initUI() {
-        uiComponentsHolder = new ApplicationUIComponentsHolder();
-        /* создаем главную форму и указываем заголовок */
-        this.mainFrame = new JFrame("Поиск максимальной плотности на площадь окружности");
-        /* задаем операцию по нажатию на крестик */
-        this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        /* задаем размеры формы для различных вычислений */
-        this.mainFrame.setSize(uiComponentsHolder.getMainFrameSize());
-        /* задаем визуальные размеры формы */
-        this.mainFrame.setPreferredSize(uiComponentsHolder.getMainFrameSize());
-        /* задаем тип лэйаута для размещения компонентов */
-        this.mainFrame.setLayout(new BorderLayout());
-
-        /* вычисляем центр экрана для отображения формы по центру */
-        Dimension windowSize = this.mainFrame.getSize();
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        Point centerPoint = ge.getCenterPoint();
-
-        int dx = centerPoint.x - windowSize.width / 2;
-        int dy = centerPoint.y - windowSize.height / 2;
-        this.mainFrame.setLocation(dx, dy);
+        this.getUiComponentsHolder().getMainFrame().pack();
     }
 
     public ApplicationUIComponentsHolder getUiComponentsHolder() {
@@ -97,5 +83,9 @@ public class GuiBuilderV2 {
 
     public LogicWrapper getLogicWrapper() {
         return logicWrapper;
+    }
+
+    public ExecutorServiceWrapper getExecutorServiceWrapper() {
+        return executorServiceWrapper;
     }
 }

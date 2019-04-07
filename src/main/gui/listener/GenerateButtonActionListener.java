@@ -1,5 +1,6 @@
 package main.gui.listener;
 
+import main.core.ThreadFactory;
 import main.core.objects.CoordinateSystem;
 import main.gui.GuiBuilderV2;
 
@@ -23,15 +24,8 @@ public class GenerateButtonActionListener implements ActionListener {
             if (stringPointCount != null) {
                 int i = Integer.parseInt(stringPointCount);
                 this.guiBuilder.getLogicWrapper().getSystemCoordinateGenerator().setPointCount(i);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        CoordinateSystem coordinateSystem = guiBuilder.getLogicWrapper().getSystemCoordinateGenerator().generate(GenerateButtonActionListener.this.guiBuilder);
-                        guiBuilder.getLogicWrapper().setCoordinateSystem(coordinateSystem);
-                        guiBuilder.getUiComponentsHolder().getDrawPanel().addPoints(coordinateSystem, null);
-                        guiBuilder.getUiComponentsHolder().setLabelText("Точек " + coordinateSystem.getPoints().size());
-                    }
-                }).start();
+                this.guiBuilder.getExecutorServiceWrapper().execute(ThreadFactory.generatePoint(this.guiBuilder));
+
             }
         } catch (NumberFormatException e1) {
             JOptionPane.showConfirmDialog(null, e1.getMessage(), "Ошибка", JOptionPane.DEFAULT_OPTION);

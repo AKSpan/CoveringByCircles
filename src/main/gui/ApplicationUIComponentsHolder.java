@@ -23,7 +23,31 @@ public class ApplicationUIComponentsHolder {
     private RightPanel rightPanel;
     private JMenuBar menu;
     private DrawPanel drawPanel;
+    /**
+     * Главная форма приложения. Она наполняется компонентами.
+     */
+    private JFrame mainFrame;
+    public void initMainFormUI() {
+        /* создаем главную форму и указываем заголовок */
+        this.mainFrame = new JFrame("Поиск максимальной плотности на площадь окружности");
+        /* задаем операцию по нажатию на крестик */
+        this.mainFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        /* задаем размеры формы для различных вычислений */
+        this.mainFrame.setSize(this.getMainFrameSize());
+        /* задаем визуальные размеры формы */
+        this.mainFrame.setPreferredSize(this.getMainFrameSize());
+        /* задаем тип лэйаута для размещения компонентов */
+        this.mainFrame.setLayout(new BorderLayout());
 
+        /* вычисляем центр экрана для отображения формы по центру */
+        Dimension windowSize = this.mainFrame.getSize();
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Point centerPoint = ge.getCenterPoint();
+
+        int dx = centerPoint.x - windowSize.width / 2;
+        int dy = centerPoint.y - windowSize.height / 2;
+        this.mainFrame.setLocation(dx, dy);
+    }
     public JPanel getFooter() {
         return footer;
     }
@@ -112,5 +136,9 @@ public class ApplicationUIComponentsHolder {
 
     public Dimension getMainFrameSize() {
         return MAIN_FRAME_SIZE;
+    }
+
+    public JFrame getMainFrame() {
+        return mainFrame;
     }
 }
