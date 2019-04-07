@@ -36,7 +36,8 @@ public class SquareMethodAlgorithm implements IAlgorithm {
         GetCircleOutSquare getCircleOutSquare = new GetCircleOutSquare(
                 new SquareBlockFactory(
                         coordinateSystem,
-                        guiBuilder.getLogicWrapper().getSquareDeepValue(), (Graphics2D) guiBuilder.getUiComponentsHolder().getDrawPanel().getGraphics()),
+                        guiBuilder.getLogicWrapper().getSquareDeepValue(),
+                        (Graphics2D) guiBuilder.getUiComponentsHolder().getDrawPanel().getGraphics()),
                 minPointInCircle);
 
         ResultInfo rs = new ResultInfo();
@@ -53,5 +54,10 @@ public class SquareMethodAlgorithm implements IAlgorithm {
 
 
         return rs;
+    }
+
+    @Override
+    public int getMinimalPointsInside() {
+        return 2;
     }
 }

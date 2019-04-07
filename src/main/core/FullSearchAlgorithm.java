@@ -30,4 +30,9 @@ public class FullSearchAlgorithm implements IAlgorithm {
 
         return new ResultInfo();
     }
+
+    @Override
+    public int getMinimalPointsInside() {
+        return 2;
+    }
 }

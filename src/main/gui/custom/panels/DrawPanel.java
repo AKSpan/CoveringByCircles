@@ -5,7 +5,6 @@ import main.core.enums.LoggerTextTemplates;
 import main.core.objects.*;
 import main.core.objects.Point;
 import main.gui.GuiBuilderV2;
-import main.gui.UILogger;
 import main.gui.listener.AbstractLogger;
 import main.gui.listener.AddPointToSystemCoordinateMouseListener;
 
@@ -33,8 +32,8 @@ public class DrawPanel extends JPanel {
         super.paintComponent(g2d);
         g2d.setColor(Color.red);
 
-        g2d.drawLine(MARGIN_X, MARGIN_Y, MARGIN_X, this.getHeight() - MARGIN_Y);
-        g2d.drawLine(MARGIN_X, this.getHeight() - MARGIN_Y, this.getWidth() - MARGIN_X, this.getHeight() - MARGIN_Y);
+        g2d.drawLine(MARGIN_X, MARGIN_Y, MARGIN_X, this.guiBuilderV2.getUiComponentsHolder().getSystemCoordinateSizeY()-MARGIN_Y);
+        g2d.drawLine(MARGIN_X, this.guiBuilderV2.getUiComponentsHolder().getSystemCoordinateSizeY()-MARGIN_Y, this.guiBuilderV2.getUiComponentsHolder().getSystemCoordinateSizeX(), this.guiBuilderV2.getUiComponentsHolder().getSystemCoordinateSizeY()-MARGIN_Y );
     }
 
     public void addPoints(CoordinateSystem coordinateSystem, Circle c) {

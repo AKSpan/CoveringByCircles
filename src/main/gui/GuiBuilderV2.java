@@ -47,8 +47,8 @@ public class GuiBuilderV2 {
         this.logicWrapper = new LogicWrapper()
                 .setStopAction(false)
                 .setAlgorithm(new TwoPointAlgorithm())
-                .setSystemCoordinateGenerator(new SystemCoordinateGenerator(uiComponentsHolder.getSystemCoordinateSizeX(), uiComponentsHolder.getSystemCoordinateSizeY(), 0, uiComponentsHolder.getMarginX(), uiComponentsHolder.getMarginY()))
-                .setCoordinateSystem(new CoordinateSystem(uiComponentsHolder.getSystemCoordinateSizeX(), uiComponentsHolder.getSystemCoordinateSizeY()));
+                .setSystemCoordinateGenerator(new SystemCoordinateGenerator(uiComponentsHolder.getSystemCoordinateSizeX(), uiComponentsHolder.getSystemCoordinateSizeY() - uiComponentsHolder.getMarginY(), 0, uiComponentsHolder.getMarginX(), uiComponentsHolder.getMarginY()))
+                .setCoordinateSystem(new CoordinateSystem(uiComponentsHolder.getSystemCoordinateSizeX(), uiComponentsHolder.getSystemCoordinateSizeY() - uiComponentsHolder.getMarginY()));
         /* Объект с логикой действий для кнопок и компонентов  */
         ApplicationActionListenerHolder applicationActionListenerHolder = new ApplicationActionListenerHolder(this);
 
@@ -58,7 +58,7 @@ public class GuiBuilderV2 {
         uiComponentsHolder.setLeftPanel(JComponentsFactory.leftPanel(applicationActionListenerHolder));
         uiComponentsHolder.setRightPanel(JComponentsFactory.rightPanel(applicationActionListenerHolder));
         uiComponentsHolder.setMenu(JComponentsFactory.menu(applicationActionListenerHolder));
-        uiComponentsHolder.setDrawPanel(JComponentsFactory.drawPanel(uiComponentsHolder.getSystemCoordinateSizeX(), uiComponentsHolder.getSystemCoordinateSizeY(), this));
+        uiComponentsHolder.setDrawPanel(JComponentsFactory.drawPanel(this));
 
         this.getUiComponentsHolder().getMainFrame().add(uiComponentsHolder.getFooter(), BorderLayout.SOUTH);
         this.getUiComponentsHolder().getMainFrame().add(uiComponentsHolder.getLeftPanel(), BorderLayout.WEST);

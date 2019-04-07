@@ -33,7 +33,7 @@ public class TwoPointAlgorithm implements IAlgorithm {
                     continue;
                 }
                 currentOperationCount++;
-                label.setText(String.format("Шаг операции %s из максимальных %s", currentOperationCount, maxOperationCount));
+               // label.setText(String.format("Шаг операции %s из максимальных %s", currentOperationCount, maxOperationCount));
                 p2 = objPoint2;
                 boolean canPointAdd = true;
                 for (List<Point> pointList : listOfPoints) {
@@ -43,8 +43,6 @@ public class TwoPointAlgorithm implements IAlgorithm {
                     for (Point point : pointList) {
                         if (guiBuilder.getLogicWrapper().isStopAction())
                             break;
-//                        currentOperationCount++;
-//                        label.setText(String.format("Шаг операции %s из максимальных %s", currentOperationCount, maxOperationCount));
 
                         if (point.equals(p1) || point.equals(p2))
                             equalsCounter++;
@@ -62,12 +60,14 @@ public class TwoPointAlgorithm implements IAlgorithm {
         List<Circle> circlesByPoints = this.getCirclesByPoints(listOfPoints);
         Map<Circle, List<Point>> circlesWithPointsInside = this.getCirclesWithPointsInside(circlesByPoints, points, minPointInCircle);
         Density maxDensity = this.getMaxDensity(circlesWithPointsInside, minPointInCircle);
-        System.out.println(maxDensity);
-        resultInfo.setAlgorithmNameLabel(this.getAlgorithmName());
-        coordinateSystem.setCircle(maxDensity.getCircle());
+        if (maxDensity != null) {
+            System.out.println(maxDensity);
+            resultInfo.setAlgorithmNameLabel(this.getAlgorithmName());
+            coordinateSystem.setCircle(maxDensity.getCircle());
 
-        resultInfo.setCircle(maxDensity.getCircle());
-        resultInfo.setPoints(maxDensity.getPoints());
+            resultInfo.setCircle(maxDensity.getCircle());
+            resultInfo.setPoints(maxDensity.getPoints());
+        }
         return resultInfo;
     }
 
@@ -92,5 +92,8 @@ public class TwoPointAlgorithm implements IAlgorithm {
         return "Две точки";
     }
 
-
+    @Override
+    public int getMinimalPointsInside() {
+        return 2;
+    }
 }

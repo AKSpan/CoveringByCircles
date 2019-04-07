@@ -1,10 +1,11 @@
 package main.core;
 
-import main.core.objects.*;
-import main.gui.GuiBuilder;
+import main.core.objects.Circle;
+import main.core.objects.Density;
+import main.core.objects.Point;
+import main.core.objects.ResultInfo;
 import main.gui.GuiBuilderV2;
 
-import javax.swing.*;
 import java.util.*;
 
 /**
@@ -50,7 +51,7 @@ public interface IAlgorithm {
 
     }
 
-    default Map<Circle, List<Point>> getCirclesWithPointsInside(List<Circle> circlesByPoints, Set<Point> points,long minPoints) {
+    default Map<Circle, List<Point>> getCirclesWithPointsInside(List<Circle> circlesByPoints, Set<Point> points, long minPoints) {
         Point[] objects = points.toArray(new Point[]{});
         Map<Circle, List<Point>> circlesWithPointsInside = new HashMap<>();
         for (Circle circlesByPoint : circlesByPoints) {
@@ -69,4 +70,10 @@ public interface IAlgorithm {
     double getCircleRadius(List<Point> coordinates);
 
     ResultInfo calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder);
+
+    int getMinimalPointsInside();
+
+    default int getSquareDeepValue() {
+        return 2;
+    }
 }

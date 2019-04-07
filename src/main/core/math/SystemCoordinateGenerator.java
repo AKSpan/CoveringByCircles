@@ -20,6 +20,8 @@ public class SystemCoordinateGenerator {
     private CoordinateSystem coordinateSystem;
     private int marginY;
     private int marginX;
+    private int maxBoundX;
+    private int maxBoundY;
 
     public CoordinateSystem getCoordinateSystem() {
         return coordinateSystem;
@@ -27,10 +29,12 @@ public class SystemCoordinateGenerator {
 
     public SystemCoordinateGenerator(int maxX, int maxY, int pointCount, int marginX, int marginY) {
         this.maxX = maxX;
-        this.maxY = maxX;
+        this.maxY = maxY;
         this.marginX = marginX;
         this.marginY = marginY;
         this.pointCount = pointCount;
+//        this.maxBoundX = (maxX - 29) + 1;
+//        this.maxBoundY = (maxY - 88) + 1;
 
         System.out.printf("MaxX %s; MaxY %s\n", maxX, maxY);
         System.out.printf("marginX %s; marginY %s\n", marginX, marginY);
@@ -46,14 +50,18 @@ public class SystemCoordinateGenerator {
     public CoordinateSystem generate(GuiBuilderV2 gui) {
         //создаем объект типа СИСТЕМА КООРДИНАТ
         this.coordinateSystem = new CoordinateSystem(this.maxX, this.maxY);
+        this.maxBoundX = gui.getUiComponentsHolder().getSystemCoordinateSizeX();
+        this.maxBoundY = gui.getUiComponentsHolder().getSystemCoordinateSizeY()-gui.getUiComponentsHolder().getMarginY();
+        this.coordinateSystem.setBoundsX(this.maxBoundX);
+        this.coordinateSystem.setBoundsY(this.maxBoundY);
         //добавляем точки
 
         for (int i = 0; i < pointCount; i++) {
             if (!gui.getLogicWrapper().isStopAction()) {
                 //объект для генерации случайных чисел
                 Random rnd = new Random();
-                //Создаем точку с координатами в диапозоне координат 0 < X <  MAX_X; 0 < Y < MAX_Y
-                Point p = new Point(rnd.nextInt((maxX - 29) + 1) + this.marginX, rnd.nextInt((maxY - 88) + 1) + this.marginY);
+                //Создаем точку с координатами в диапозоне координат MARGIN_X < X <  MAX_X-MARGIN_X; MARGIN_Y < Y < MAX_Y - MARGIN_Y
+                Point p = new Point(rnd.nextInt(this.maxBoundX-this.marginX) + this.marginX, rnd.nextInt(this.maxBoundY-this.marginY) + this.marginY);
                 gui.getUiComponentsHolder().setLabelText(String.format("Шаг %s/%s", i + 1, pointCount));
                 //добавляем в массив точек системы координат нашу точку
                 coordinateSystem.addPoint(p);
@@ -84,4 +92,20 @@ public class SystemCoordinateGenerator {
         this.pointCount = pointCount;
     }
 
+    /**
+     * Максимальное значение точки на графической системе координат
+     * Отличается от MaxX[Y] в виду отрисовки графики
+     * @return
+     */
+    private int getMaxBoundX() {
+        return maxBoundX;
+    }
+    /**
+     * Максимальное значение точки на графической системе координат
+     * Отличается от MaxX[Y] в виду отрисовки графики
+     * @return
+     */
+    private int getMaxBoundY() {
+        return maxBoundY;
+    }
 }

@@ -68,13 +68,14 @@ public class SquareBlockFactory {
 
         SquareBlock resultBlock = null;
         for (int i = 0; i < blockDividerCounter; i++) {
-            int maxPoints = 0;
+            double minSquare = Double.MAX_VALUE;
             SquareBlock squareBlock = null;
             List<SquareBlock> blocks = this.squareBlocks;
             for (SquareBlock block : blocks) {
-                int size = block.calculatePointsInside(points).getPointsInside().size();
-                if (maxPoints < size && size >= minPoints) {
-                    maxPoints = block.getPointsInside().size();
+                int pointsInside = block.calculatePointsInside(points).getPointsInside().size();
+                double currentBlockSquare = (block.getStepX() * block.getStepY()) / pointsInside;
+                if (currentBlockSquare < minSquare && pointsInside >= minPoints) {
+                    minSquare = currentBlockSquare;
                     squareBlock = block;
                 }
             }

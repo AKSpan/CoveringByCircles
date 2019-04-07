@@ -20,8 +20,9 @@ public class AddPointToSystemCoordinateMouseListener extends AbstractLogger impl
     public void mouseClicked(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
-        if (x <= this.guiBuilderV2.getLogicWrapper().getCoordinateSystem().getMaxX() && y <= this.guiBuilderV2.getLogicWrapper().getCoordinateSystem().getMaxY()
-                && x >= this.guiBuilderV2.getUiComponentsHolder().getMarginX() && y >= this.guiBuilderV2.getUiComponentsHolder().getMarginY()) {
+        System.out.printf("mouseClicked %s;%s\n",x,y);
+        if ((x >= this.guiBuilderV2.getUiComponentsHolder().getMarginX() && x <= this.guiBuilderV2.getLogicWrapper().getCoordinateSystem().getMaxBoundX()) &&
+                (y >= this.guiBuilderV2.getUiComponentsHolder().getMarginY() && y <= this.guiBuilderV2.getLogicWrapper().getCoordinateSystem().getMaxBoundsY())) {
             Point point = new Point(x, y);
             this.log(LoggerTextTemplates.addPointEvent(point));
             this.guiBuilderV2.getLogicWrapper().getCoordinateSystem().addPoint(point);

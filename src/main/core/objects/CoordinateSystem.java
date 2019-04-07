@@ -16,6 +16,8 @@ public class CoordinateSystem {
     private HashSet<Point> points;
     private HashSet<Circle> circles;
     private Circle circle;
+    private int maxBoundX;
+    private int maxBoundY;
 
     public CoordinateSystem(int maxX, int maxY) {
         this.maxX = maxX;
@@ -25,6 +27,8 @@ public class CoordinateSystem {
         //и создаем пустые массив для будущей работы
         this.points = new HashSet<>();
         this.circles = new HashSet<>();
+        this.maxBoundX = (maxX - 29) + 1;
+        this.maxBoundY = (maxY - 88) + 1;
     }
 
     public void clear() {
@@ -120,5 +124,21 @@ public class CoordinateSystem {
 
     public double getMinY() {
         return minY;
+    }
+
+    public void setBoundsX(int maxBoundX) {
+        this.maxBoundX = maxBoundX;
+    }
+
+    public void setBoundsY(int maxBoundY) {
+        this.maxBoundY = maxBoundY;
+    }
+
+    public int getMaxBoundX() {
+        return maxBoundX;
+    }
+
+    public int getMaxBoundsY() {
+        return maxBoundY;
     }
 }

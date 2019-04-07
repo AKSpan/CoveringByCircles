@@ -14,8 +14,8 @@ public class ApplicationUIComponentsHolder {
     private static final int MARGIN_Y = 50;
     private static final int SIZE_X = 900;
     private static final int SIZE_Y = 600;
-    private static final int SYSTEM_COORDINATE_SIZE_X = 505;
-    private static final int SYSTEM_COORDINATE_SIZE_Y = 520;
+    private static final int SYSTEM_COORDINATE_SIZE_X = 515;
+    private static final int SYSTEM_COORDINATE_SIZE_Y = 515;
     private static final Dimension MAIN_FRAME_SIZE = new Dimension(SIZE_X, SIZE_Y);
     private JPanel footer;
     private JLabel operationLabel;
@@ -23,11 +23,17 @@ public class ApplicationUIComponentsHolder {
     private RightPanel rightPanel;
     private JMenuBar menu;
     private DrawPanel drawPanel;
+    private JTextField minPointInCircleTextArea;
+    private JTextField squareDeepValue;
     /**
      * Главная форма приложения. Она наполняется компонентами.
      */
     private JFrame mainFrame;
     public void initMainFormUI() {
+        /* поле для установки минимального значения точек в окружности */
+        this.minPointInCircleTextArea = new JTextField();
+        /* Поле для установки глубины разбиения на квадраты в алгоритме квандрантов*/
+        this.squareDeepValue = new JTextField();
         /* создаем главную форму и указываем заголовок */
         this.mainFrame = new JFrame("Поиск максимальной плотности на площадь окружности");
         /* задаем операцию по нажатию на крестик */
@@ -48,6 +54,16 @@ public class ApplicationUIComponentsHolder {
         int dy = centerPoint.y - windowSize.height / 2;
         this.mainFrame.setLocation(dx, dy);
     }
+
+    public JTextField getMinPointInCircleTextArea() {
+        return minPointInCircleTextArea;
+    }
+
+    public ApplicationUIComponentsHolder setMinPointInCircleTextArea(JTextField minPointInCircleTextArea) {
+        this.minPointInCircleTextArea = minPointInCircleTextArea;
+        return this;
+    }
+
     public JPanel getFooter() {
         return footer;
     }
@@ -140,5 +156,13 @@ public class ApplicationUIComponentsHolder {
 
     public JFrame getMainFrame() {
         return mainFrame;
+    }
+
+    public void setSquareDeepValueTextArea(JTextField squareDeepValue) {
+        this.squareDeepValue=squareDeepValue;
+    }
+
+    public JTextField getSquareDeepValue() {
+        return squareDeepValue;
     }
 }

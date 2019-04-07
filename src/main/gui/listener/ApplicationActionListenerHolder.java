@@ -4,6 +4,7 @@ import main.core.enums.AlgorithmTypes;
 import main.gui.GuiBuilderV2;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 
 public class ApplicationActionListenerHolder {
     private GuiBuilderV2 guiBuilderV2;
@@ -31,15 +32,18 @@ public class ApplicationActionListenerHolder {
     public ActionListener getSaveToFileActionListener() {
         return new SaveButtonActionListener(this.guiBuilderV2);
     }
-    public ActionListener getSetMinimalPointsInCircleActionListener() {
+    public KeyListener getSetMinimalPointsInCircleActionListener() {
         return new SetMinimalPointInCircleActionListener(this.guiBuilderV2);
     }
     public ActionListener getStopOperationActionListener() {
         return new StopOperationActionListener(this.guiBuilderV2);
     }
 
-    public ActionListener getSetSquareDeepValue() {
+    public KeyListener getSetSquareDeepValue() {
         return new SetSquareDeepValueActionListener(this.guiBuilderV2);
     }
 
+    public GuiBuilderV2 getGuiBuilder() {
+        return guiBuilderV2;
+    }
 }

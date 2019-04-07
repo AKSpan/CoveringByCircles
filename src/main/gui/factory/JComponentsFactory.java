@@ -16,8 +16,8 @@ import java.net.URL;
 
 public class JComponentsFactory {
     private final static int SIZE_20 = 20;
-    private final static int SIZE_50 = 100;
     private final static int SIZE_100 = 100;
+    private final static int SIZE_120 = 120;
     private final static int SIZE_200 = 200;
     private final static int SIZE_600 = 600;
     private final static int SIZE_700 = 700;
@@ -36,7 +36,7 @@ public class JComponentsFactory {
         operationLabel.setSize(60, 15);
         operationLabel.setBorder(new EmptyBorder(0, 0, 0, 15));
         operationLabel.setFont(new Font("myFont", Font.BOLD, 12));
-        operationLabel.setText("Label");
+        operationLabel.setText("");
         operationLabel.setForeground(Color.BLACK);
 
         footer.add(operationLabel, BorderLayout.EAST);
@@ -45,10 +45,11 @@ public class JComponentsFactory {
     }
 
     public static JPanel leftPanel(ApplicationActionListenerHolder applicationActionListenerHolder) {
+
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        leftPanel.setSize(SIZE_50, SIZE_600);
-        leftPanel.setPreferredSize(new Dimension(SIZE_50, SIZE_600));
+        leftPanel.setSize(SIZE_120, SIZE_600);
+        leftPanel.setPreferredSize(new Dimension(SIZE_120, SIZE_600));
         leftPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK));
 
         /* 1 */
@@ -133,12 +134,67 @@ public class JComponentsFactory {
         stopButton.setBorderPainted(false);
         stopButton.addActionListener(applicationActionListenerHolder.getStopOperationActionListener());
         fourthButtonRow.add(stopButton);
-
+        /* 5 */
+        JPanel fifthButtonRow = new JPanel();
+        fifthButtonRow.setLayout(new BoxLayout(fifthButtonRow, BoxLayout.Y_AXIS));
+        ButtonGroup bg = new ButtonGroup();
+        JRadioButton fullAlgo = new JRadioButton(AlgorithmTypes.FULL_SEARCH.getValue());
+        fullAlgo.setPreferredSize(new Dimension(100, 15));
+        fullAlgo.setFont(new Font("BoxFont", Font.PLAIN, 8));
+        JRadioButton three_points = new JRadioButton(AlgorithmTypes.THREE_POINTS.getValue());
+        three_points.setPreferredSize(new Dimension(100, 15));
+        three_points.setFont(new Font("BoxFont", Font.PLAIN, 8));
+        JRadioButton two_points = new JRadioButton(AlgorithmTypes.TWO_POINTS.getValue());
+        two_points.setPreferredSize(new Dimension(100, 15));
+        two_points.setFont(new Font("BoxFont", Font.PLAIN, 8));
+        JRadioButton squares = new JRadioButton(AlgorithmTypes.SQUARES_METHOD.getValue());
+        squares.setPreferredSize(new Dimension(100, 15));
+        squares.setFont(new Font("BoxFont", Font.PLAIN, 8));
+        fullAlgo.addActionListener(applicationActionListenerHolder.getChosenAlgorithmActionListener(AlgorithmTypes.FULL_SEARCH));
+        three_points.addActionListener(applicationActionListenerHolder.getChosenAlgorithmActionListener(AlgorithmTypes.THREE_POINTS));
+        two_points.addActionListener(applicationActionListenerHolder.getChosenAlgorithmActionListener(AlgorithmTypes.TWO_POINTS));
+        squares.addActionListener(applicationActionListenerHolder.getChosenAlgorithmActionListener(AlgorithmTypes.SQUARES_METHOD));
+        bg.add(fullAlgo);
+        bg.add(three_points);
+        bg.add(two_points);
+        bg.add(squares);
+        JLabel algoLAble = new JLabel("Алгоритм");
+        fifthButtonRow.add(algoLAble);
+        fifthButtonRow.add(fullAlgo);
+        fifthButtonRow.add(three_points);
+        two_points.setSelected(true);
+        fifthButtonRow.add(two_points);
+        fifthButtonRow.add(squares);
+        /* 6 */
+        JPanel sixRow = new JPanel();
+        sixRow.setLayout(new BoxLayout(sixRow, BoxLayout.Y_AXIS));
+        JLabel minPointLabel = new JLabel("Число точек в окр-ти");
+        minPointLabel.setFont(new Font("myFont", Font.BOLD, 10));
+        sixRow.add(minPointLabel);
+        JTextField minPointsText = new JTextField();
+        minPointsText.setPreferredSize(new Dimension(10, 20));
+        applicationActionListenerHolder.getGuiBuilder().getUiComponentsHolder().setMinPointInCircleTextArea(minPointsText);
+        minPointsText.addKeyListener(applicationActionListenerHolder.getSetMinimalPointsInCircleActionListener());
+        sixRow.add(minPointsText);
+        /* 7 */
+        JPanel sevenRow = new JPanel();
+        sevenRow.setLayout(new BoxLayout(sevenRow, BoxLayout.Y_AXIS));
+        JLabel squareDeepValueLabel = new JLabel("Глубина разбиения");
+        squareDeepValueLabel.setFont(new Font("myFont", Font.BOLD, 9));
+        sevenRow.add(squareDeepValueLabel);
+        JTextField squareDeepValue = new JTextField();
+        squareDeepValue.setPreferredSize(new Dimension(10, 20));
+        applicationActionListenerHolder.getGuiBuilder().getUiComponentsHolder().setSquareDeepValueTextArea(squareDeepValue);
+        squareDeepValue.addKeyListener(applicationActionListenerHolder.getSetSquareDeepValue());
+        sevenRow.add(squareDeepValue);
 
         leftPanel.add(firstButtonRow);
         leftPanel.add(secondButtonRow);
         leftPanel.add(thirdButtonRow);
         leftPanel.add(fourthButtonRow);
+        leftPanel.add(fifthButtonRow);
+        leftPanel.add(sixRow);
+        leftPanel.add(sevenRow);
 
         return leftPanel;
     }
@@ -168,13 +224,11 @@ public class JComponentsFactory {
     public static JMenuBar menu(ApplicationActionListenerHolder applicationActionListenerHolder) {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(JComponentsFactory.createFileMenu(applicationActionListenerHolder));
-        menuBar.add(JComponentsFactory.createAlgorithmMenu(applicationActionListenerHolder));
-        menuBar.add(JComponentsFactory.createOperationMenu(applicationActionListenerHolder));
 
         return menuBar;
     }
 
-    public static DrawPanel drawPanel(int x, int y, GuiBuilderV2 guiBuilder) {
+    public static DrawPanel drawPanel(GuiBuilderV2 guiBuilder) {
         DrawPanel drawPanel = new DrawPanel(guiBuilder);
 
         return drawPanel;
@@ -203,7 +257,7 @@ public class JComponentsFactory {
         return fileMenu;
     }
 
-    private static JMenu createAlgorithmMenu(ApplicationActionListenerHolder applicationActionListenerHolder) {
+   /* private static JMenu createAlgorithmMenu(ApplicationActionListenerHolder applicationActionListenerHolder) {
         JMenu algorithm = new JMenu("Алгоритм");
         JRadioButtonMenuItem fullAlgo = new JRadioButtonMenuItem("Полный перебор");
         JRadioButtonMenuItem three_points = new JRadioButtonMenuItem("Метод 3 точек");
@@ -247,5 +301,5 @@ public class JComponentsFactory {
         squareDeepValueMenu.addActionListener(applicationActionListenerHolder.getSetSquareDeepValue());
 
         return operationMenu;
-    }
+    }*/
 }

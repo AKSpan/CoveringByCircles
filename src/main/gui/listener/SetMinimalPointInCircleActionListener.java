@@ -3,10 +3,10 @@ package main.gui.listener;
 import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class SetMinimalPointInCircleActionListener implements ActionListener {
+public class SetMinimalPointInCircleActionListener implements KeyListener {
     private GuiBuilderV2 guiBuilder;
 
     public SetMinimalPointInCircleActionListener(GuiBuilderV2 guiBuilder) {
@@ -14,16 +14,25 @@ public class SetMinimalPointInCircleActionListener implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        String s = JOptionPane.showInputDialog(null, "Укажите значение параметра", "Минимальное число точек в окружности:",JOptionPane.INFORMATION_MESSAGE);
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
         try {
-            if (s != null) {
-                long i = Long.parseLong(s);
-                this.guiBuilder.getLogicWrapper().setMinimalPointsInCircle(i);
-            }
+            String s = this.guiBuilder.getUiComponentsHolder().getMinPointInCircleTextArea().getText();
+            long i = guiBuilder.getLogicWrapper().getAlgorithm().getMinimalPointsInside();
+            if (s != null && !s.isEmpty())
+                i = Long.parseLong(s);
+            this.guiBuilder.getLogicWrapper().setMinimalPointsInCircle(i);
         } catch (NumberFormatException e1) {
             JOptionPane.showConfirmDialog(null, e1.getMessage(), "Ошибка", JOptionPane.DEFAULT_OPTION);
-
         }
     }
 }
