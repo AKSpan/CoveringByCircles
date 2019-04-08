@@ -48,10 +48,8 @@ public class ThreadFactory {
                 ExecutorService pool = guiBuilder.getExecutorServiceWrapper().getExecutorService();
                 if (pool instanceof ThreadPoolExecutor) {
                     while (true) {
-                        System.out.println(
-                                "Pool size is now " +
-                                        ((ThreadPoolExecutor) pool).getActiveCount()
-                        );
+                        if (guiBuilder.getUiComponentsHolder().getActiveThreadsLabel() != null)
+                            guiBuilder.getUiComponentsHolder().getActiveThreadsLabel().setText("Число активных потоков: " + (((ThreadPoolExecutor) pool).getActiveCount() - 1));
                         try {
                             Thread.sleep(2000);
                         } catch (InterruptedException e) {

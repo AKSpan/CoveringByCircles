@@ -25,12 +25,6 @@ public class JComponentsFactory {
 
     /* Нижняя панель с информацией об опреации */
     public static FooterPanel getFooterPanel() {
-        JPanel footer = new JPanel();
-        footer.setSize(new Dimension(SIZE_600, SIZE_20));
-        footer.setPreferredSize(new Dimension(SIZE_600, SIZE_20));
-        footer.setBackground(Color.GRAY);
-        footer.setLayout(new BorderLayout());
-        footer.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, Color.BLACK));
 
         JLabel operationLabel = new JLabel();
         operationLabel.setSize(60, 15);
@@ -39,9 +33,14 @@ public class JComponentsFactory {
         operationLabel.setText("");
         operationLabel.setForeground(Color.BLACK);
 
-        footer.add(operationLabel, BorderLayout.EAST);
 
-        return new FooterPanel(footer, operationLabel);
+        JLabel threadsCountLAbel = new JLabel();
+        threadsCountLAbel.setSize(60, 15);
+        threadsCountLAbel.setBorder(new EmptyBorder(0, 0, 0, 15));
+        threadsCountLAbel.setFont(new Font("myFont", Font.BOLD, 12));
+        threadsCountLAbel.setText("");
+        threadsCountLAbel.setForeground(Color.BLACK);
+        return new FooterPanel(threadsCountLAbel,operationLabel);
     }
 
     public static JPanel leftPanel(ApplicationActionListenerHolder applicationActionListenerHolder) {

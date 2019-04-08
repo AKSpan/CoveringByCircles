@@ -76,4 +76,6 @@ public interface IAlgorithm {
     default int getSquareDeepValue() {
         return 2;
     }
+
+    void setTextToLabel(String labelText);
 }

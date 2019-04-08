@@ -37,7 +37,8 @@ public class SquareMethodAlgorithm implements IAlgorithm {
                 new SquareBlockFactory(
                         coordinateSystem,
                         guiBuilder.getLogicWrapper().getSquareDeepValue(),
-                        (Graphics2D) guiBuilder.getUiComponentsHolder().getDrawPanel().getGraphics()),
+                        (Graphics2D) guiBuilder.getUiComponentsHolder().getDrawPanel().getGraphics(),
+                        guiBuilder),
                 minPointInCircle);
 
         ResultInfo rs = new ResultInfo();
@@ -59,5 +60,10 @@ public class SquareMethodAlgorithm implements IAlgorithm {
     @Override
     public int getMinimalPointsInside() {
         return 2;
+    }
+
+    @Override
+    public void setTextToLabel(String labelText) {
+
     }
 }

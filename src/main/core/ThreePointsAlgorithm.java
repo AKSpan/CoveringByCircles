@@ -9,13 +9,15 @@ import java.math.BigInteger;
 import java.util.*;
 
 public class ThreePointsAlgorithm implements IAlgorithm {
+    private JLabel label;
+
     @Override
     public ResultInfo calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder) {
         guiBuilder.getLogicWrapper().setStopAction(false);
 
         CoordinateSystem coordinateSystem = guiBuilder.getLogicWrapper().getCoordinateSystem();
         long minPointInCircle = guiBuilder.getLogicWrapper().getMinimalPointInCircle();
-        JLabel label = guiBuilder.getUiComponentsHolder().getOperationLabel();
+        label = guiBuilder.getUiComponentsHolder().getOperationLabel();
         HashSet<Point> points = coordinateSystem.getPoints();
 
         ResultInfo resultInfo = new ResultInfo();
@@ -41,7 +43,7 @@ public class ThreePointsAlgorithm implements IAlgorithm {
                     if (p1.equals(objPoint3) || p2.equals(objPoint3) || p1.equals(objPoint2))
                         continue;
                     currentOperationCount++;
-                  //  label.setText(String.format("Шаг операции %s из максимальных %s", currentOperationCount, maxOperationCount));
+                    this.setTextToLabel(String.format("Шаг операции %s из максимальных %s", currentOperationCount, maxOperationCount));
                     p3 = objPoint3;
                     boolean canPointAdd = true;
                     /*for (List<Point> pointList : completeResult) {
@@ -162,5 +164,10 @@ public class ThreePointsAlgorithm implements IAlgorithm {
     @Override
     public int getMinimalPointsInside() {
         return 3;
+    }
+    @Override
+    public void setTextToLabel(String labelText) {
+        if (this.label != null)
+            this.label.setText(labelText);
     }
 }

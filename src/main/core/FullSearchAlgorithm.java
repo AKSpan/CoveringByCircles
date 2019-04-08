@@ -35,4 +35,9 @@ public class FullSearchAlgorithm implements IAlgorithm {
     public int getMinimalPointsInside() {
         return 2;
     }
+
+    @Override
+    public void setTextToLabel(String labelText) {
+
+    }
 }

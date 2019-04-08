@@ -3,9 +3,9 @@ package main.core.math;
 import main.core.objects.CoordinateSystem;
 import main.core.objects.Point;
 import main.core.objects.SquareBlock;
+import main.gui.GuiBuilderV2;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -20,13 +20,15 @@ public class SquareBlockFactory {
     private double initX;
     private double initY;
     private Graphics2D graphics2D;
+    private GuiBuilderV2 guiBuilderV2;
 
-    public SquareBlockFactory(CoordinateSystem coordinateSystem, int blockDividerCounter, Graphics2D graphics2D) {
-        this(coordinateSystem.getMaxX(), coordinateSystem.getMaxY(), coordinateSystem.getMinX(), coordinateSystem.getMinY(), coordinateSystem.getPoints(), blockDividerCounter, graphics2D);
+    public SquareBlockFactory(CoordinateSystem coordinateSystem, int blockDividerCounter, Graphics2D graphics2D, GuiBuilderV2 guiBuilderV2) {
+        this(coordinateSystem, coordinateSystem.getMaxX(), coordinateSystem.getMaxY(), coordinateSystem.getMinX(), coordinateSystem.getMinY(), coordinateSystem.getPoints(), blockDividerCounter, graphics2D, guiBuilderV2);
+
     }
 
 
-    public SquareBlockFactory(double sizeX, double sizeY, double initX, double initY, Set<Point> points, int blockDividerCounter, Graphics2D graphics2D) {
+    public SquareBlockFactory(CoordinateSystem coordinateSystem, double sizeX, double sizeY, double initX, double initY, Set<Point> points, int blockDividerCounter, Graphics2D graphics2D, GuiBuilderV2 guiBuilderV2) {
         this.blockDividerCounter = blockDividerCounter;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
@@ -34,13 +36,15 @@ public class SquareBlockFactory {
         this.initY = initY;
         this.points = points;
         this.graphics2D = graphics2D;
-
+        this.coordinateSystem = coordinateSystem;
+        this.guiBuilderV2 = guiBuilderV2;
     }
 
-    private List<SquareBlock> getBlocks() {
+    private List<SquareBlock> getBlocks(int stepCount) {
         this.squareBlocks = new ArrayList<>(4);
 
-        double step = sizeX > sizeY ? sizeX / 2 : sizeY / 2;
+        double step = coordinateSystem.getMaxBoundsX() > coordinateSystem.getMaxBoundsY() ? coordinateSystem.getMaxBoundsX() / (2 + stepCount) : coordinateSystem.getMaxBoundsY() / (2 + stepCount);
+//        double step = sizeX > sizeY ? sizeX  / 2 : sizeY / 2;
 
         double stepX = step;// (sizeX + initX) / 2;
         double stepY = step;//(sizeY + initY) / 2;
@@ -64,10 +68,12 @@ public class SquareBlockFactory {
     }
 
     public SquareBlock getBlockWithMaxPointsInside(long minPoints) {
-        this.squareBlocks = this.getBlocks();
+        this.squareBlocks = this.getBlocks(0);
 
         SquareBlock resultBlock = null;
         for (int i = 0; i < blockDividerCounter; i++) {
+            if (this.guiBuilderV2.getLogicWrapper().isStopAction())
+                break;
             double minSquare = Double.MAX_VALUE;
             SquareBlock squareBlock = null;
             List<SquareBlock> blocks = this.squareBlocks;
@@ -79,14 +85,17 @@ public class SquareBlockFactory {
                     squareBlock = block;
                 }
             }
+            //todo - проблема в размерах при разиение на блоки - бьются сверху вниз и нижние блоки захватывают поле вне системы координат
             if (squareBlock != null) {
                 resultBlock = squareBlock;
-                this.squareBlocks = new SquareBlockFactory(squareBlock.getStepX(),
+                this.squareBlocks = new SquareBlockFactory(
+                        this.coordinateSystem,
+                        squareBlock.getStepX(),
                         squareBlock.getStepY(),
                         squareBlock.getStartX(),
                         squareBlock.getStartY(),
                         points,
-                        this.blockDividerCounter, this.graphics2D).getBlocks();
+                        this.blockDividerCounter, this.graphics2D, this.guiBuilderV2).getBlocks(i);
             }
         }
 

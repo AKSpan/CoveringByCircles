@@ -9,11 +9,13 @@ import java.math.BigInteger;
 import java.util.*;
 
 public class TwoPointAlgorithm implements IAlgorithm {
+    private JLabel label;
+
     @Override
     public ResultInfo calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder) {
         guiBuilder.getLogicWrapper().setStopAction(false);
         CoordinateSystem coordinateSystem = guiBuilder.getLogicWrapper().getCoordinateSystem();
-        JLabel label = guiBuilder.getUiComponentsHolder().getOperationLabel();
+        label = guiBuilder.getUiComponentsHolder().getOperationLabel();
         long minPointInCircle = guiBuilder.getLogicWrapper().getMinimalPointInCircle();
         HashSet<Point> points = coordinateSystem.getPoints();
         Point[] objects = points.toArray(new Point[]{});
@@ -33,7 +35,7 @@ public class TwoPointAlgorithm implements IAlgorithm {
                     continue;
                 }
                 currentOperationCount++;
-               // label.setText(String.format("Шаг операции %s из максимальных %s", currentOperationCount, maxOperationCount));
+               this.setTextToLabel(String.format("Шаг операции %s из максимальных %s", currentOperationCount, maxOperationCount));
                 p2 = objPoint2;
                 boolean canPointAdd = true;
                 for (List<Point> pointList : listOfPoints) {
@@ -96,4 +98,11 @@ public class TwoPointAlgorithm implements IAlgorithm {
     public int getMinimalPointsInside() {
         return 2;
     }
+
+    @Override
+    public void setTextToLabel(String labelText) {
+        if (this.label != null)
+            this.label.setText(labelText);
+    }
+
 }

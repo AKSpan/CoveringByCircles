@@ -10,7 +10,6 @@ import main.gui.factory.JComponentsFactory;
 import main.gui.listener.ApplicationActionListenerHolder;
 import main.gui.math.LogicWrapper;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class GuiBuilderV2 {
@@ -53,8 +52,9 @@ public class GuiBuilderV2 {
         ApplicationActionListenerHolder applicationActionListenerHolder = new ApplicationActionListenerHolder(this);
 
         FooterPanel footerPanel1 = JComponentsFactory.getFooterPanel();
-        uiComponentsHolder.setFooter(footerPanel1.getFooter());
-        uiComponentsHolder.setOperationLabel(footerPanel1.getLabel());
+        uiComponentsHolder.setFooter(footerPanel1.getFooterPanel());
+        uiComponentsHolder.setActiveThreadsFooter(footerPanel1.getActiveThreadsLabel());
+        uiComponentsHolder.setOperationLabel(footerPanel1.getOperationInfoLabel());
         uiComponentsHolder.setLeftPanel(JComponentsFactory.leftPanel(applicationActionListenerHolder));
         uiComponentsHolder.setRightPanel(JComponentsFactory.rightPanel(applicationActionListenerHolder));
         uiComponentsHolder.setMenu(JComponentsFactory.menu(applicationActionListenerHolder));

@@ -23,7 +23,7 @@ public class DrawPanel extends JPanel {
     public DrawPanel(GuiBuilderV2 guiBuilderV2) {
         this.guiBuilderV2 = guiBuilderV2;
         this.coordinateSystem = guiBuilderV2.getLogicWrapper().getCoordinateSystem();
-        this.setBackground(Color.CYAN);
+        this.setBackground(Color.LIGHT_GRAY);
         this.addMouseListener(new AddPointToSystemCoordinateMouseListener(this.guiBuilderV2));
     }
 

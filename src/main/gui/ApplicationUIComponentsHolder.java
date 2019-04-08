@@ -19,6 +19,7 @@ public class ApplicationUIComponentsHolder {
     private static final Dimension MAIN_FRAME_SIZE = new Dimension(SIZE_X, SIZE_Y);
     private JPanel footer;
     private JLabel operationLabel;
+    private JLabel activeThreadsLabel;
     private JPanel leftPanel;
     private RightPanel rightPanel;
     private JMenuBar menu;
@@ -118,8 +119,20 @@ public class ApplicationUIComponentsHolder {
         return this;
     }
 
+    public JLabel getActiveThreadsLabel() {
+        return activeThreadsLabel;
+    }
+
+    public ApplicationUIComponentsHolder setActiveThreadsLabel(JLabel activeThreadsLabel) {
+        this.activeThreadsLabel = activeThreadsLabel;
+        return this;
+    }
+
     public void setLabelText(String text) {
         this.operationLabel.setText(text);
+    }
+    public void setActiveThreadsLabelText(String text) {
+        this.activeThreadsLabel.setText(text);
     }
 
     public void setEnabledForButtons(boolean b) {
@@ -164,5 +177,10 @@ public class ApplicationUIComponentsHolder {
 
     public JTextField getSquareDeepValue() {
         return squareDeepValue;
+    }
+
+    public void setActiveThreadsFooter(JLabel activeThreadsLabel) {
+        this.activeThreadsLabel = activeThreadsLabel;
+
     }
 }

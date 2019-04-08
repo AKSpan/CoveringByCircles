@@ -134,7 +134,7 @@ public class CoordinateSystem {
         this.maxBoundY = maxBoundY;
     }
 
-    public int getMaxBoundX() {
+    public int getMaxBoundsX() {
         return maxBoundX;
     }
 
