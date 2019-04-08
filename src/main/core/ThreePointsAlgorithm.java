@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.math.BigInteger;
 import java.util.*;
 
+/**
+ * Алгоритм через построения окружности на основе 3 точек
+ */
 public class ThreePointsAlgorithm implements IAlgorithm {
     private JLabel label;
 

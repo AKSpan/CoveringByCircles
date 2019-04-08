@@ -1,10 +1,8 @@
 package main;
 
-import main.gui.GuiBuilder;
 import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
-import java.util.Random;
 
 public class MainV2 {
 

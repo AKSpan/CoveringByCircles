@@ -6,6 +6,9 @@ import main.gui.GuiBuilderV2;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
+/**
+ * Класс обертка для удобного хранения всех классов-событий приложения
+ */
 public class ApplicationActionListenerHolder {
     private GuiBuilderV2 guiBuilderV2;
 

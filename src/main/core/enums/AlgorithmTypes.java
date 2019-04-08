@@ -1,5 +1,8 @@
 package main.core.enums;
 
+/**
+ * Типы алгоритмов и их названия
+ */
 public enum AlgorithmTypes {
     FULL_SEARCH("Полный перебор"),
     TWO_POINTS("Две точки"),

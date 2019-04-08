@@ -7,7 +7,9 @@ import main.gui.GuiBuilderV2;
 import javax.swing.*;
 import java.math.BigInteger;
 import java.util.*;
-
+/**
+ * Алгоритм через построения окружности на основе 2 точек
+ */
 public class TwoPointAlgorithm implements IAlgorithm {
     private JLabel label;
 

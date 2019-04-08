@@ -6,14 +6,18 @@ import main.core.objects.Circle;
 import main.core.objects.CoordinateSystem;
 import main.core.objects.Point;
 import main.core.objects.ResultInfo;
-import main.gui.GuiBuilder;
 import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
+/**
+ * Алгоритм для метода квадрантов
+ */
 public class SquareMethodAlgorithm implements IAlgorithm {
 
     @Override

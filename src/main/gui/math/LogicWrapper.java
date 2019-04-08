@@ -6,6 +6,9 @@ import main.core.objects.CoordinateSystem;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Класс обёртка, хранит в себе некоторую логику приложения
+ */
 public class LogicWrapper {
     /**
      * Флаг остановки процесса вычисления (генерации точек, подсчёта плотности)

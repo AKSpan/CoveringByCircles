@@ -8,6 +8,10 @@ import main.gui.GuiBuilderV2;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * Алгоритм полнго перебора. Не использую в программе
+ *
+ */
 public class FullSearchAlgorithm implements IAlgorithm {
     @Override
     public String getAlgorithmName() {

@@ -4,6 +4,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+/**
+ * Сервис для работы с пулом потоков - набором потоков. Позволяет корректно управлять ими и запускать в параллельных потоках задания
+ */
 public class ExecutorServiceWrapper {
     private ExecutorService executorService;
 

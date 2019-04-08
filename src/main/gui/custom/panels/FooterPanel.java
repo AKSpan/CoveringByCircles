@@ -3,6 +3,9 @@ package main.gui.custom.panels;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Футер-панель- нижняя часть формы, информация об активных потоках и операции
+ */
 public class FooterPanel {
     private final static int SIZE_20 = 20;
     private final static int SIZE_600 = 600;

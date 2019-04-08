@@ -8,6 +8,9 @@ import main.gui.UILogger;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * Класс для реализации события при добавлении точки на графическую панель
+ */
 public class AddPointToSystemCoordinateMouseListener extends AbstractLogger implements MouseListener {
     private GuiBuilderV2 guiBuilderV2;
 

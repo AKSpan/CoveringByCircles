@@ -1,12 +1,13 @@
 package main.gui.listener;
 
-import main.gui.GuiBuilder;
 import main.gui.GuiBuilderV2;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collections;
-
+/**
+ * Класс для реализации события очистки формы
+ */
 public class ClearFormActionListener implements ActionListener {
     private GuiBuilderV2 guiBuilder;
 

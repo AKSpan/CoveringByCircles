@@ -11,6 +11,9 @@ import java.io.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Класс для реализации события загрузки файла с данными
+ */
 public class LoadButtonActionListener implements ActionListener {
     private GuiBuilderV2 guiBuilder;
 
@@ -30,11 +33,8 @@ public class LoadButtonActionListener implements ActionListener {
                     Set<Point> points = new HashSet<>();
                     Circle circle = null;
                     boolean isCirclePart = false;
-                    LineNumberReader count = new LineNumberReader(new FileReader(loadedFile));
-                    int progressBarStep = count.getLineNumber() / 100;
 
                     while ((sCurrentLine = br.readLine()) != null) {
-//                        this.guiBuilder.getProgressBar().setValue(this.guiBuilder.getProgressBar().getValue() + progressBarStep);
                         if (sCurrentLine.equals("POINTS:"))
                             continue;
                         if (sCurrentLine.equals("CIRCLE:")) {
@@ -59,6 +59,6 @@ public class LoadButtonActionListener implements ActionListener {
                 }
             }
         }
-    }//2380
+    }
 
 }

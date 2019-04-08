@@ -1,6 +1,5 @@
 package main.gui.listener;
 
-import main.gui.GuiBuilder;
 import main.gui.GuiBuilderV2;
 
 import javax.swing.*;
@@ -11,7 +10,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
+/**
+ * Класс для реализации события сохранения данных в файл
+ */
 public class SaveButtonActionListener implements ActionListener {
 
     public SaveButtonActionListener(GuiBuilderV2 guiBuilder) {

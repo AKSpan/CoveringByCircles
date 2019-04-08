@@ -2,6 +2,9 @@ package main.gui.listener;
 
 import main.gui.UILogger;
 
+/**
+ * Класс для логирования (в правую панель приложения)
+ */
 public class AbstractLogger {
     private UILogger uiLogger;
 

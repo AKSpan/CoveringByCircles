@@ -3,10 +3,8 @@ package main.core.math;
 import main.core.objects.Circle;
 import main.core.objects.CoordinateSystem;
 import main.core.objects.Point;
-import main.gui.GuiBuilder;
 import main.gui.GuiBuilderV2;
 
-import javax.swing.*;
 import java.util.Random;
 
 /**
@@ -33,8 +31,6 @@ public class SystemCoordinateGenerator {
         this.marginX = marginX;
         this.marginY = marginY;
         this.pointCount = pointCount;
-//        this.maxBoundX = (maxX - 29) + 1;
-//        this.maxBoundY = (maxY - 88) + 1;
 
         System.out.printf("MaxX %s; MaxY %s\n", maxX, maxY);
         System.out.printf("marginX %s; marginY %s\n", marginX, marginY);

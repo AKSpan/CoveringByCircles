@@ -7,7 +7,9 @@ import main.gui.GuiBuilderV2;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * Класс для реализации события генерации точек
+ */
 public class GenerateButtonActionListener implements ActionListener {
     private GuiBuilderV2 guiBuilder;
 

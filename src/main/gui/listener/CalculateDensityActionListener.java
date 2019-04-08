@@ -7,7 +7,9 @@ import main.gui.UILogger;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * Класс для реализации события вычисления плотности
+ */
 public class CalculateDensityActionListener extends AbstractLogger implements ActionListener {
     private GuiBuilderV2 guiBuilder;
     private static final String LESS_THAN_MIN_POINTS = "Количество точек в системе координат меньше чем заданый параметр минимального числа точек в окружности %s";

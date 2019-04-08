@@ -1,5 +1,8 @@
 package main.gui;
 
+/**
+ * Класс логирующий в текстовый компонент правой формы
+ */
 public class UILogger {
     private ApplicationUIComponentsHolder uiComponentsHolder;
 

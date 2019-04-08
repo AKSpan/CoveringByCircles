@@ -6,6 +6,9 @@ import main.core.objects.SquareBlock;
 
 import javax.swing.*;
 
+/**
+ * Построение окружность вокруг квадрата
+ */
 public class GetCircleOutSquare {
     private SquareBlockFactory squareBlockFactory;
     private long minPoints;

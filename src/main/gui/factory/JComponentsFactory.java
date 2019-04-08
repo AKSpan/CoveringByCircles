@@ -14,6 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 
+/**
+ * Класс для отрисовки заготовленных форм приложения
+ */
 public class JComponentsFactory {
     private final static int SIZE_20 = 20;
     private final static int SIZE_100 = 100;
@@ -23,7 +26,7 @@ public class JComponentsFactory {
     private final static int SIZE_700 = 700;
     private final static int SIZE_500 = 700;
 
-    /* Нижняя панель с информацией об опреации */
+    /* Нижняя панель с информацией об операции */
     public static FooterPanel getFooterPanel() {
 
         JLabel operationLabel = new JLabel();
@@ -43,6 +46,7 @@ public class JComponentsFactory {
         return new FooterPanel(threadsCountLAbel,operationLabel);
     }
 
+    /* Левая панель с кнопками */
     public static JPanel leftPanel(ApplicationActionListenerHolder applicationActionListenerHolder) {
 
         JPanel leftPanel = new JPanel();
@@ -137,9 +141,6 @@ public class JComponentsFactory {
         JPanel fifthButtonRow = new JPanel();
         fifthButtonRow.setLayout(new BoxLayout(fifthButtonRow, BoxLayout.Y_AXIS));
         ButtonGroup bg = new ButtonGroup();
-//        JRadioButton fullAlgo = new JRadioButton(AlgorithmTypes.FULL_SEARCH.getValue());
-//        fullAlgo.setPreferredSize(new Dimension(100, 15));
-//        fullAlgo.setFont(new Font("BoxFont", Font.PLAIN, 8));
         JRadioButton three_points = new JRadioButton(AlgorithmTypes.THREE_POINTS.getValue());
         three_points.setPreferredSize(new Dimension(100, 15));
         three_points.setFont(new Font("BoxFont", Font.PLAIN, 8));
@@ -149,17 +150,14 @@ public class JComponentsFactory {
         JRadioButton squares = new JRadioButton(AlgorithmTypes.SQUARES_METHOD.getValue());
         squares.setPreferredSize(new Dimension(100, 15));
         squares.setFont(new Font("BoxFont", Font.PLAIN, 8));
-//        fullAlgo.addActionListener(applicationActionListenerHolder.getChosenAlgorithmActionListener(AlgorithmTypes.FULL_SEARCH));
         three_points.addActionListener(applicationActionListenerHolder.getChosenAlgorithmActionListener(AlgorithmTypes.THREE_POINTS));
         two_points.addActionListener(applicationActionListenerHolder.getChosenAlgorithmActionListener(AlgorithmTypes.TWO_POINTS));
         squares.addActionListener(applicationActionListenerHolder.getChosenAlgorithmActionListener(AlgorithmTypes.SQUARES_METHOD));
-//        bg.add(fullAlgo);
         bg.add(three_points);
         bg.add(two_points);
         bg.add(squares);
         JLabel algoLAble = new JLabel("Алгоритм");
         fifthButtonRow.add(algoLAble);
-//        fifthButtonRow.add(fullAlgo);
         fifthButtonRow.add(three_points);
         two_points.setSelected(true);
         fifthButtonRow.add(two_points);
@@ -198,6 +196,7 @@ public class JComponentsFactory {
         return leftPanel;
     }
 
+    /* Правая панель */
     public static RightPanel rightPanel(ApplicationActionListenerHolder applicationActionListenerHolder) {
         JPanel rightPanel = new JPanel();
         rightPanel.setSize(SIZE_200, SIZE_700);
@@ -219,20 +218,21 @@ public class JComponentsFactory {
 
         return panel;
     }
-
+/* Выпадающее меню */
     public static JMenuBar menu(ApplicationActionListenerHolder applicationActionListenerHolder) {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(JComponentsFactory.createFileMenu(applicationActionListenerHolder));
 
         return menuBar;
     }
-
+ /* графическая форма */
     public static DrawPanel drawPanel(GuiBuilderV2 guiBuilder) {
         DrawPanel drawPanel = new DrawPanel(guiBuilder);
 
         return drawPanel;
     }
 
+    /* создание выпадающего меню */
     private static JMenu createFileMenu(ApplicationActionListenerHolder applicationActionListenerHolder) {
         JMenu fileMenu = new JMenu("Файл");
         JMenuItem openItemMenu = new JMenuItem("Открыть");
@@ -255,50 +255,4 @@ public class JComponentsFactory {
         fileMenu.add(exitMenuItem);
         return fileMenu;
     }
-
-   /* private static JMenu createAlgorithmMenu(ApplicationActionListenerHolder applicationActionListenerHolder) {
-        JMenu algorithm = new JMenu("Алгоритм");
-        JRadioButtonMenuItem fullAlgo = new JRadioButtonMenuItem("Полный перебор");
-        JRadioButtonMenuItem three_points = new JRadioButtonMenuItem("Метод 3 точек");
-        JRadioButtonMenuItem two_points = new JRadioButtonMenuItem("Метод 2 точек");
-        two_points.setSelected(true);
-        JRadioButtonMenuItem squares = new JRadioButtonMenuItem("Метод квадратнов");
-
-        fullAlgo.addActionListener(applicationActionListenerHolder.getChosenAlgorithmActionListener(AlgorithmTypes.FULL_SEARCH));
-        three_points.addActionListener(applicationActionListenerHolder.getChosenAlgorithmActionListener(AlgorithmTypes.THREE_POINTS));
-        two_points.addActionListener(applicationActionListenerHolder.getChosenAlgorithmActionListener(AlgorithmTypes.TWO_POINTS));
-        squares.addActionListener(applicationActionListenerHolder.getChosenAlgorithmActionListener(AlgorithmTypes.SQUARES_METHOD));
-
-
-        ButtonGroup bg = new ButtonGroup();
-        bg.add(fullAlgo);
-        bg.add(three_points);
-        bg.add(two_points);
-        bg.add(squares);
-
-        algorithm.add(fullAlgo);
-        algorithm.add(three_points);
-        algorithm.add(two_points);
-        algorithm.add(squares);
-
-        return algorithm;
-    }
-
-    private static JMenu createOperationMenu(ApplicationActionListenerHolder applicationActionListenerHolder) {
-        JMenu operationMenu = new JMenu("Действия");
-        operationMenu.setName("operationMenu");
-        JMenuItem clearFieldItemMenu = new JMenuItem("Очистить");
-        JMenuItem minPointSetPanel = new JMenuItem("Минимальное число точек");
-        JMenuItem squareDeepValueMenu = new JMenuItem("Глубина построения квадратов");
-
-        operationMenu.add(clearFieldItemMenu);
-        operationMenu.add(minPointSetPanel);
-        operationMenu.add(squareDeepValueMenu);
-
-        clearFieldItemMenu.addActionListener(applicationActionListenerHolder.getClearFormActionListener());
-        minPointSetPanel.addActionListener(applicationActionListenerHolder.getSetMinimalPointsInCircleActionListener());
-        squareDeepValueMenu.addActionListener(applicationActionListenerHolder.getSetSquareDeepValue());
-
-        return operationMenu;
-    }*/
 }

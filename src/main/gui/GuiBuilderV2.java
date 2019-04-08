@@ -12,6 +12,10 @@ import main.gui.math.LogicWrapper;
 
 import java.awt.*;
 
+/**
+ * Класс хранящий данные о приложении и запускающий его работу.
+ * Отрисовывает форму, хранит события и логику
+ */
 public class GuiBuilderV2 {
 
 

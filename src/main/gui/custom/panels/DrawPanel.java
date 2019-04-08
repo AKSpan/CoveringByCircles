@@ -14,6 +14,9 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.util.Set;
 
+/**
+ * Описание графической панели приложения, на которой происходит отрисовка
+ */
 public class DrawPanel extends JPanel {
     private static final int MARGIN_X = 50, MARGIN_Y = 50;
     private CoordinateSystem coordinateSystem;

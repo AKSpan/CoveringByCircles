@@ -2,6 +2,9 @@ package main.core.math;
 
 import java.math.BigInteger;
 
+/**
+ * Вычисление факториала
+ */
 public class Factorial {
     public static BigInteger factorial(BigInteger n) {
         if (n.equals(BigInteger.ZERO)) return BigInteger.ONE;

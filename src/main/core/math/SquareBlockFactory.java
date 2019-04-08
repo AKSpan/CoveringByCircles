@@ -10,13 +10,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Класс который генерит список из квадратов для работы алгоритма квандрантов
+ * По этим квандрата проихсожит поиск точек и подсчёт плотности
+ * Размер квадрата зависит от размера системы координат и значения blockDividerCounter - до какого значения счётчика делать разбиение.
+ * Изначально система координат бьется на 4 квадарата - далее подходящий квадрат разбивается еще на 4 мелких квадрата, и т.д.
+ */
 public class SquareBlockFactory {
     private CoordinateSystem coordinateSystem;
     private Set<Point> points;
     private int blockDividerCounter;
     private List<SquareBlock> squareBlocks;
-    private double sizeX;
-    private double sizeY;
     private double initX;
     private double initY;
     private Graphics2D graphics2D;
@@ -30,8 +34,6 @@ public class SquareBlockFactory {
 
     public SquareBlockFactory(CoordinateSystem coordinateSystem, double sizeX, double sizeY, double initX, double initY, Set<Point> points, int blockDividerCounter, Graphics2D graphics2D, GuiBuilderV2 guiBuilderV2) {
         this.blockDividerCounter = blockDividerCounter;
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
         this.initX = initX;
         this.initY = initY;
         this.points = points;

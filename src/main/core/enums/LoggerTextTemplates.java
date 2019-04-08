@@ -3,6 +3,9 @@ package main.core.enums;
 import main.core.IAlgorithm;
 import main.core.objects.Point;
 
+/**
+ * Класс для логирования опредленных событий
+ */
 public class LoggerTextTemplates {
     private static final String ADD_POINT = "Добавлена точка с координатами [%s,%s]";
     private static final String CALCULATION_DENSITY = "Вычисляется плотность...";

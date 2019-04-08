@@ -5,22 +5,14 @@ import main.gui.GuiBuilderV2;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+/**
+ * Класс для реализации события установки значения глуины разбиения на квадраты в методе квадрантов
+ */
 public class SetSquareDeepValueActionListener implements KeyListener {
     private GuiBuilderV2 guiBuilder;
 
     public SetSquareDeepValueActionListener(GuiBuilderV2 guiBuilderV2) {
         this.guiBuilder = guiBuilderV2;
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
     }
 
     @Override
@@ -35,5 +27,14 @@ public class SetSquareDeepValueActionListener implements KeyListener {
         } catch (NumberFormatException e1) {
             JOptionPane.showConfirmDialog(null, e1.getMessage(), "Ошибка", JOptionPane.DEFAULT_OPTION);
         }
+    }
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
     }
 }

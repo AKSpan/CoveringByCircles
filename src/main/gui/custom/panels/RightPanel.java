@@ -2,6 +2,9 @@ package main.gui.custom.panels;
 
 import javax.swing.*;
 
+/**
+ * Правая панель формы с тектовым полем
+ */
 public class RightPanel {
     private JPanel rightPanel;
     private JTextArea textArea;

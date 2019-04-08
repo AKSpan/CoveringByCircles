@@ -5,22 +5,14 @@ import main.gui.GuiBuilderV2;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
+/**
+ * Класс для реализации события установки значения минимального числа точек для окружности (кол-во точек, которое должно быть в окружности (минимум))
+ */
 public class SetMinimalPointInCircleActionListener implements KeyListener {
     private GuiBuilderV2 guiBuilder;
 
     public SetMinimalPointInCircleActionListener(GuiBuilderV2 guiBuilder) {
         this.guiBuilder = guiBuilder;
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-
     }
 
     @Override
@@ -34,5 +26,14 @@ public class SetMinimalPointInCircleActionListener implements KeyListener {
         } catch (NumberFormatException e1) {
             JOptionPane.showConfirmDialog(null, e1.getMessage(), "Ошибка", JOptionPane.DEFAULT_OPTION);
         }
+    }
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+
     }
 }

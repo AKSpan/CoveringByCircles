@@ -3,18 +3,23 @@ package main.core;
 import main.core.enums.LoggerTextTemplates;
 import main.core.objects.CoordinateSystem;
 import main.gui.GuiBuilderV2;
-import main.gui.UILogger;
 import main.gui.listener.AbstractLogger;
-import main.gui.listener.CalculateDensityActionListener;
 
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
+/**
+ * Класс для предоставления определенных задач
+ * Задачи используются для запуска в отдельных потоках
+ */
 public class ThreadFactory {
-    private static final ExecutorService EXECUTOR_SERVICE = Executors.newFixedThreadPool(1);
 
 
+    /**
+     * Генерация точек
+     * @param guiBuilder
+     * @return
+     */
     public static Runnable generatePoint(GuiBuilderV2 guiBuilder) {
         Runnable r = new Runnable() {
             @Override
@@ -28,6 +33,12 @@ public class ThreadFactory {
         return r;
     }
 
+    /**
+     * Вычисление плотности
+     * @param guiBuilder
+     * @param abstractLogger
+     * @return
+     */
     public static Runnable calculateDensity(GuiBuilderV2 guiBuilder, AbstractLogger abstractLogger) {
         Runnable r = new Runnable() {
             @Override
@@ -41,6 +52,11 @@ public class ThreadFactory {
         return r;
     }
 
+    /**
+     * Проверка и отображение на форме приложения числа активных потоков
+     * @param guiBuilder
+     * @return
+     */
     public static Runnable checkThreads(GuiBuilderV2 guiBuilder) {
         Runnable r = new Runnable() {
             @Override
