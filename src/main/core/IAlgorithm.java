@@ -16,7 +16,7 @@ public interface IAlgorithm {
     String getAlgorithmName();
 
     default boolean isPointInCircle(Circle circle, Point p) {
-        return Math.sqrt(Math.pow((p.getX() - circle.getCenter().getX()), 2) + Math.pow((p.getY() - circle.getCenter().getY()), 2)) <= circle.getRadius();
+        return new Float(Math.sqrt(Math.pow((p.getX() - circle.getCenter().getX()), 2) + Math.pow((p.getY() - circle.getCenter().getY()), 2))) <= new Float(circle.getRadius());
     }
 
     default double getSide(Point a, Point b) {

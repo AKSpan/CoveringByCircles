@@ -70,4 +70,8 @@ public class ResultInfo {
         this.squareBlocks = squareBlocks;
         return this;
     }
+
+    public String prettyString() {
+        return String.format("Центр:%s;%s, радиус %s", (float) this.getCircle().getCenter().getX(), (float) this.getCircle().getCenter().getY(), (float) this.getCircle().getRadius());
+    }
 }

@@ -32,8 +32,8 @@ public class DrawPanel extends JPanel {
         super.paintComponent(g2d);
         g2d.setColor(Color.red);
 
-        g2d.drawLine(MARGIN_X, MARGIN_Y, MARGIN_X, this.guiBuilderV2.getUiComponentsHolder().getSystemCoordinateSizeY()-MARGIN_Y);
-        g2d.drawLine(MARGIN_X, this.guiBuilderV2.getUiComponentsHolder().getSystemCoordinateSizeY()-MARGIN_Y, this.guiBuilderV2.getUiComponentsHolder().getSystemCoordinateSizeX(), this.guiBuilderV2.getUiComponentsHolder().getSystemCoordinateSizeY()-MARGIN_Y );
+        g2d.drawLine(MARGIN_X, MARGIN_Y, MARGIN_X, this.guiBuilderV2.getUiComponentsHolder().getSystemCoordinateSizeY() - MARGIN_Y);
+        g2d.drawLine(MARGIN_X, this.guiBuilderV2.getUiComponentsHolder().getSystemCoordinateSizeY() - MARGIN_Y, this.guiBuilderV2.getUiComponentsHolder().getSystemCoordinateSizeX(), this.guiBuilderV2.getUiComponentsHolder().getSystemCoordinateSizeY() - MARGIN_Y);
     }
 
     public void addPoints(CoordinateSystem coordinateSystem, Circle c) {
@@ -64,6 +64,7 @@ public class DrawPanel extends JPanel {
 
 
     public void calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder, AbstractLogger abstractLogger) {
+        String resultLogText = "";
         IAlgorithm algorithm = guiBuilder.getLogicWrapper().getAlgorithm();
         ResultInfo resultInfo = algorithm.calculateDensityAndDrawCircle(guiBuilder);
         abstractLogger.log(LoggerTextTemplates.calculatingProcess());
@@ -76,19 +77,23 @@ public class DrawPanel extends JPanel {
                 (resultInfo.getCircle().getCenter().getY() - resultInfo.getCircle().getRadius() + 1),
                 resultInfo.getCircle().getRadius() * 2,
                 resultInfo.getCircle().getRadius() * 2));
+        resultLogText += "Окружность [" + resultInfo.prettyString() + "]\n";
         /* Отмечаем точки внутри окружности */
         graphics.setColor(Color.RED);
-
-        for (Point point : resultInfo.getPoints()) {
-            graphics.fill(new Ellipse2D.Double(point.getX() - 1, point.getY() - 1, 4, 4));
+        if (resultInfo.getPoints() != null && resultInfo.getPoints().size() > 0) {
+            resultLogText += "Точки внутри окружности:\n";
+            for (Point point : resultInfo.getPoints()) {
+                graphics.fill(new Ellipse2D.Double(point.getX() - 1, point.getY() - 1, 4, 4));
+                resultLogText += point + "\n";
+            }
         }
         if (resultInfo.getSquareBlocks() != null) {
             graphics.setBackground(Color.BLUE);
             for (SquareBlock squareBlock : resultInfo.getSquareBlocks()) {
                 graphics.draw(new Rectangle2D.Double(squareBlock.getStartX(), squareBlock.getStartY(), squareBlock.getStepX(), squareBlock.getStepY()));
             }
-
         }
+        abstractLogger.log(resultLogText);
 
     }
 

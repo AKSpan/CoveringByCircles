@@ -14,38 +14,42 @@ public class ThreePointsAlgorithm implements IAlgorithm {
     @Override
     public ResultInfo calculateDensityAndDrawCircle(GuiBuilderV2 guiBuilder) {
         guiBuilder.getLogicWrapper().setStopAction(false);
-
         CoordinateSystem coordinateSystem = guiBuilder.getLogicWrapper().getCoordinateSystem();
-        long minPointInCircle = guiBuilder.getLogicWrapper().getMinimalPointInCircle();
-        label = guiBuilder.getUiComponentsHolder().getOperationLabel();
-        HashSet<Point> points = coordinateSystem.getPoints();
-
         ResultInfo resultInfo = new ResultInfo();
-        Point[] objects = points.toArray(new Point[]{});
-        Point p1, p2, p3;
-        List<List<Point>> completeResult = new ArrayList<>();
-        int currentOperationCount = 0;
-        BigInteger maxOperationCount = Permutations.get(points.size(), 3);
 
-        for (Point objPoint1 : objects) {
-            if (guiBuilder.getLogicWrapper().isStopAction())
-                break;
-            p1 = objPoint1;
-            for (Point objPoint2 : objects) {
+        if (this.getMinimalPointsInside() > coordinateSystem.getPoints().size())
+            JOptionPane.showConfirmDialog(null, "Число точек в системе координат [" + coordinateSystem.getPoints().size() + "] меньше,\n" +
+                    "чем минимально необходимо для работы данного алгоритма [" + this.getMinimalPointsInside() + "]", "Ошибка", JOptionPane.DEFAULT_OPTION);
+        else {
+            long minPointInCircle = guiBuilder.getLogicWrapper().getMinimalPointInCircle();
+            label = guiBuilder.getUiComponentsHolder().getOperationLabel();
+            HashSet<Point> points = coordinateSystem.getPoints();
+
+            Point[] objects = points.toArray(new Point[]{});
+            Point p1, p2, p3;
+            List<List<Point>> completeResult = new ArrayList<>();
+            int currentOperationCount = 0;
+            BigInteger maxOperationCount = Permutations.get(points.size(), 3);
+
+            for (Point objPoint1 : objects) {
                 if (guiBuilder.getLogicWrapper().isStopAction())
                     break;
-                if (p1.equals(objPoint2))
-                    continue;
-                p2 = objPoint2;
-                for (Point objPoint3 : objects) {
+                p1 = objPoint1;
+                for (Point objPoint2 : objects) {
                     if (guiBuilder.getLogicWrapper().isStopAction())
                         break;
-                    if (p1.equals(objPoint3) || p2.equals(objPoint3) || p1.equals(objPoint2))
+                    if (p1.equals(objPoint2))
                         continue;
-                    currentOperationCount++;
-                    this.setTextToLabel(String.format("Шаг операции %s из максимальных %s", currentOperationCount, maxOperationCount));
-                    p3 = objPoint3;
-                    boolean canPointAdd = true;
+                    p2 = objPoint2;
+                    for (Point objPoint3 : objects) {
+                        if (guiBuilder.getLogicWrapper().isStopAction())
+                            break;
+                        if (p1.equals(objPoint3) || p2.equals(objPoint3) || p1.equals(objPoint2))
+                            continue;
+                        currentOperationCount++;
+                        this.setTextToLabel(String.format("Шаг операции %s из максимальных %s", currentOperationCount, maxOperationCount));
+                        p3 = objPoint3;
+                        boolean canPointAdd = true;
                     /*for (List<Point> pointList : completeResult) {
                         if (guiBuilder.getLogicWrapper().isStopAction())
                             break;
@@ -62,33 +66,38 @@ public class ThreePointsAlgorithm implements IAlgorithm {
                         }
 
                     }*/
-                    if (canPointAdd) {
-                        completeResult.add(Arrays.asList(p1, p2, p3));
+                        if (canPointAdd) {
+                            completeResult.add(Arrays.asList(p1, p2, p3));
+                        }
+                        //имеем 3 точки, строим окружность, считаем плотность
                     }
-                    //имеем 3 точки, строим окружность, считаем плотность
                 }
             }
-        }
-        List<Circle> circlesByPoints = this.getCirclesByPoints(completeResult);
-        Map<Circle, List<Point>> circlesWithPointsInside = new HashMap<>();
-        for (Circle circlesByPoint : circlesByPoints) {
-            List<Point> pointsInsideCircle = new ArrayList<>();
-            for (Point point : objects) {
-                if (guiBuilder.getLogicWrapper().isStopAction())
-                    break;
-                if (this.isPointInCircle(circlesByPoint, point))
-                    pointsInsideCircle.add(point);
+            List<Circle> circlesByPoints = this.getCirclesByPoints(completeResult);
+            Map<Circle, List<Point>> circlesWithPointsInside = new HashMap<>();
+            this.setTextToLabel("Обработка полученных окружностей...");
+
+            for (Circle circlesByPoint : circlesByPoints) {
+                List<Point> pointsInsideCircle = new ArrayList<>();
+                for (Point point : objects) {
+                    if (guiBuilder.getLogicWrapper().isStopAction())
+                        break;
+                    if (this.isPointInCircle(circlesByPoint, point))
+                        pointsInsideCircle.add(point);
+                }
+                if (pointsInsideCircle.size() > 0)
+                    circlesWithPointsInside.put(circlesByPoint, pointsInsideCircle);
             }
-            if (pointsInsideCircle.size() > 0)
-                circlesWithPointsInside.put(circlesByPoint, pointsInsideCircle);
-        }
-        Density maxDensity = this.getMaxDensity(circlesWithPointsInside, minPointInCircle);
-        if (maxDensity != null) {
-            System.out.println(maxDensity);
-            resultInfo.setAlgorithmNameLabel(this.getAlgorithmName());
-            coordinateSystem.setCircle(maxDensity.getCircle());
-            resultInfo.setCircle(maxDensity.getCircle());
-            resultInfo.setPoints(maxDensity.getPoints());
+            Density maxDensity = this.getMaxDensity(circlesWithPointsInside, minPointInCircle);
+            if (maxDensity != null) {
+                System.out.println(maxDensity);
+                resultInfo.setAlgorithmNameLabel(this.getAlgorithmName());
+                coordinateSystem.setCircle(maxDensity.getCircle());
+                resultInfo.setCircle(maxDensity.getCircle());
+                resultInfo.setPoints(maxDensity.getPoints());
+                this.setTextToLabel("Окружность найдена!");
+
+            }
         }
         return resultInfo;
     }
@@ -165,6 +174,7 @@ public class ThreePointsAlgorithm implements IAlgorithm {
     public int getMinimalPointsInside() {
         return 3;
     }
+
     @Override
     public void setTextToLabel(String labelText) {
         if (this.label != null)

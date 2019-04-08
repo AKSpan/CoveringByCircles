@@ -1,7 +1,6 @@
 package main.gui.listener;
 
 import main.core.ThreadFactory;
-import main.core.enums.LoggerTextTemplates;
 import main.gui.GuiBuilderV2;
 import main.gui.UILogger;
 
@@ -14,7 +13,7 @@ public class CalculateDensityActionListener extends AbstractLogger implements Ac
     private static final String LESS_THAN_MIN_POINTS = "Количество точек в системе координат меньше чем заданый параметр минимального числа точек в окружности %s";
 
     private String getErrorMessageWithMinPointsCount() {
-        return String.format(LESS_THAN_MIN_POINTS, this.guiBuilder);
+        return String.format(LESS_THAN_MIN_POINTS, this.guiBuilder.getLogicWrapper().getMinimalPointInCircle() != null ? this.guiBuilder.getLogicWrapper().getMinimalPointInCircle() : this.guiBuilder.getLogicWrapper().getAlgorithm().getMinimalPointsInside());
     }
 
     public CalculateDensityActionListener(GuiBuilderV2 guiBuilder) {

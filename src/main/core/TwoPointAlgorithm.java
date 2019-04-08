@@ -17,60 +17,67 @@ public class TwoPointAlgorithm implements IAlgorithm {
         CoordinateSystem coordinateSystem = guiBuilder.getLogicWrapper().getCoordinateSystem();
         label = guiBuilder.getUiComponentsHolder().getOperationLabel();
         long minPointInCircle = guiBuilder.getLogicWrapper().getMinimalPointInCircle();
-        HashSet<Point> points = coordinateSystem.getPoints();
-        Point[] objects = points.toArray(new Point[]{});
-        Point p1, p2;
         ResultInfo resultInfo = new ResultInfo();
-        List<List<Point>> listOfPoints = new ArrayList<>();
-        BigInteger maxOperationCount = Permutations.get(points.size(), 2);
-        int currentOperationCount = 0;
-        for (Point objPoint1 : objects) {
-            if (guiBuilder.getLogicWrapper().isStopAction())
-                break;
-            p1 = objPoint1;
-            for (Point objPoint2 : objects) {
+        if (this.getMinimalPointsInside() > coordinateSystem.getPoints().size())
+            JOptionPane.showConfirmDialog(null, "Число точек в системе координат [" + coordinateSystem.getPoints().size() + "] меньше,\n" +
+                    "чем минимально необходимо для работы данного алгоритма [" + this.getMinimalPointsInside() + "]", "Ошибка", JOptionPane.DEFAULT_OPTION);
+        else {
+            HashSet<Point> points = coordinateSystem.getPoints();
+            Point[] objects = points.toArray(new Point[]{});
+            Point p1, p2;
+
+            List<List<Point>> listOfPoints = new ArrayList<>();
+            BigInteger maxOperationCount = Permutations.get(points.size(), 2);
+            int currentOperationCount = 0;
+            for (Point objPoint1 : objects) {
                 if (guiBuilder.getLogicWrapper().isStopAction())
                     break;
-                if (p1.equals(objPoint2)) {
-                    continue;
-                }
-                currentOperationCount++;
-               this.setTextToLabel(String.format("Шаг операции %s из максимальных %s", currentOperationCount, maxOperationCount));
-                p2 = objPoint2;
-                boolean canPointAdd = true;
-                for (List<Point> pointList : listOfPoints) {
+                p1 = objPoint1;
+                for (Point objPoint2 : objects) {
                     if (guiBuilder.getLogicWrapper().isStopAction())
                         break;
-                    int equalsCounter = 0;
-                    for (Point point : pointList) {
+                    if (p1.equals(objPoint2)) {
+                        continue;
+                    }
+                    currentOperationCount++;
+                    this.setTextToLabel(String.format("Шаг операции %s из максимальных %s", currentOperationCount, maxOperationCount));
+                    p2 = objPoint2;
+                    boolean canPointAdd = true;
+                    for (List<Point> pointList : listOfPoints) {
                         if (guiBuilder.getLogicWrapper().isStopAction())
                             break;
+                        int equalsCounter = 0;
+                        for (Point point : pointList) {
+                            if (guiBuilder.getLogicWrapper().isStopAction())
+                                break;
 
-                        if (point.equals(p1) || point.equals(p2))
-                            equalsCounter++;
-                    }
-                    if (equalsCounter == 2) {
-                        canPointAdd = false;
-                        break;
-                    }
+                            if (point.equals(p1) || point.equals(p2))
+                                equalsCounter++;
+                        }
+                        if (equalsCounter == 2) {
+                            canPointAdd = false;
+                            break;
+                        }
 
+                    }
+                    if (canPointAdd)
+                        listOfPoints.add(Arrays.asList(p1, p2));
                 }
-                if (canPointAdd)
-                    listOfPoints.add(Arrays.asList(p1, p2));
+            }
+            List<Circle> circlesByPoints = this.getCirclesByPoints(listOfPoints);
+            Map<Circle, List<Point>> circlesWithPointsInside = this.getCirclesWithPointsInside(circlesByPoints, points, minPointInCircle);
+            Density maxDensity = this.getMaxDensity(circlesWithPointsInside, minPointInCircle);
+            if (maxDensity != null) {
+                System.out.println(maxDensity);
+                resultInfo.setAlgorithmNameLabel(this.getAlgorithmName());
+                coordinateSystem.setCircle(maxDensity.getCircle());
+
+                resultInfo.setCircle(maxDensity.getCircle());
+                resultInfo.setPoints(maxDensity.getPoints());
             }
         }
-        List<Circle> circlesByPoints = this.getCirclesByPoints(listOfPoints);
-        Map<Circle, List<Point>> circlesWithPointsInside = this.getCirclesWithPointsInside(circlesByPoints, points, minPointInCircle);
-        Density maxDensity = this.getMaxDensity(circlesWithPointsInside, minPointInCircle);
-        if (maxDensity != null) {
-            System.out.println(maxDensity);
-            resultInfo.setAlgorithmNameLabel(this.getAlgorithmName());
-            coordinateSystem.setCircle(maxDensity.getCircle());
-
-            resultInfo.setCircle(maxDensity.getCircle());
-            resultInfo.setPoints(maxDensity.getPoints());
-        }
         return resultInfo;
+
     }
 
     private List<Circle> getCirclesByPoints(List<List<Point>> points) {

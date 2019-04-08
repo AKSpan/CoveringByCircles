@@ -32,28 +32,33 @@ public class SquareMethodAlgorithm implements IAlgorithm {
         CoordinateSystem coordinateSystem = guiBuilder.getLogicWrapper().getCoordinateSystem();
         long minPointInCircle = guiBuilder.getLogicWrapper().getMinimalPointInCircle();
         HashSet<Point> points = coordinateSystem.getPoints();
-
-        GetCircleOutSquare getCircleOutSquare = new GetCircleOutSquare(
-                new SquareBlockFactory(
-                        coordinateSystem,
-                        guiBuilder.getLogicWrapper().getSquareDeepValue(),
-                        (Graphics2D) guiBuilder.getUiComponentsHolder().getDrawPanel().getGraphics(),
-                        guiBuilder),
-                minPointInCircle);
-
         ResultInfo rs = new ResultInfo();
-        Circle circle = getCircleOutSquare.getCircle();
-        rs.setSquareBlocks(Collections.singletonList(getCircleOutSquare.getSquareBlock()));
-        List<Point> pointInside = new ArrayList<>();
-        for (Point point : points) {
-            if (circle.isPointInCircle(point))
-                pointInside.add(point);
+
+
+        if (this.getMinimalPointsInside() > coordinateSystem.getPoints().size())
+            JOptionPane.showConfirmDialog(null, "Число точек в системе координат [" + coordinateSystem.getPoints().size() + "] меньше,\n" +
+                    "чем минимально необходимо для работы данного алгоритма [" + this.getMinimalPointsInside() + "]", "Ошибка", JOptionPane.DEFAULT_OPTION);
+        else {
+            GetCircleOutSquare getCircleOutSquare = new GetCircleOutSquare(
+                    new SquareBlockFactory(
+                            coordinateSystem,
+                            guiBuilder.getLogicWrapper().getSquareDeepValue(),
+                            (Graphics2D) guiBuilder.getUiComponentsHolder().getDrawPanel().getGraphics(),
+                            guiBuilder),
+                    minPointInCircle);
+
+            Circle circle = getCircleOutSquare.getCircle();
+            rs.setSquareBlocks(Collections.singletonList(getCircleOutSquare.getSquareBlock()));
+            List<Point> pointInside = new ArrayList<>();
+            for (Point point : points) {
+                if (circle.isPointInCircle(point))
+                    pointInside.add(point);
+            }
+
+            rs.setCircle(circle);
+            rs.setPoints(pointInside);
+
         }
-
-        rs.setCircle(circle);
-        rs.setPoints(pointInside);
-
-
         return rs;
     }
 
